@@ -26,8 +26,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build Windows installer
+      - name: Build Windows portable exe
         run: npm run build:win
+        env:
+          DEBUG: electron-builder
+
+      - name: List dist output
+        run: dir dist
 
       - name: Publish to GitHub Releases
         shell: bash
@@ -35,6 +40,6 @@ jobs:
           gh release delete v1.0.0 --yes 2>/dev/null || true
           gh release create v1.0.0 dist/*.exe \
             --title "Ready Reckoner v1.0.0 — Windows" \
-            --notes "Windows installer. Double-click to install, then launch ReadyReckoner from the Start menu."
+            --notes "Portable Windows app — no installation needed. Just double-click to run."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
