@@ -1,0 +1,35 @@
+{
+  "name": "ready-reckoner",
+  "version": "1.0.0",
+  "description": "Ready Reckoner — Lane Yield Tracker",
+  "main": "electron-main.js",
+  "scripts": {
+    "start": "electron .",
+    "build:win": "electron-builder --win"
+  },
+  "build": {
+    "appId": "com.readyreckoner.app",
+    "productName": "ReadyReckoner",
+    "files": [
+      "electron-main.js",
+      "index.html"
+    ],
+    "directories": {
+      "output": "dist"
+    },
+    "win": {
+      "target": [
+        { "target": "nsis", "arch": ["x64"] }
+      ]
+    },
+    "nsis": {
+      "oneClick": true,
+      "perMachine": false,
+      "deleteAppDataOnUninstall": false
+    }
+  },
+  "devDependencies": {
+    "electron": "^28.3.3",
+    "electron-builder": "^24.13.3"
+  }
+}
