@@ -1,0 +1,4042 @@
+[
+  {
+    "forward": {
+      "customer": "Silox India",
+      "lane": "Chanderiya - Silvassa",
+      "febLoad": 782,
+      "distanceKms": 774,
+      "yieldPct": 76.9418604651163,
+      "minKms": 800,
+      "maxKms": 1100
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Apar + Chauhan",
+        "lane": "Silvassa - Khavda - Mundra - Chittorgarh",
+        "monthlyLoad": 117,
+        "distanceLoaded": 1500,
+        "distanceEmpty": 150,
+        "totalDistance": 1650,
+        "yieldPct": 78.3030303030303,
+        "blend": 77.868399339934
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "VBL(seasonal)",
+        "lane": "Silvassa - Surat - Kota - Chittorgarh",
+        "monthlyLoad": 600,
+        "distanceLoaded": 718,
+        "distanceEmpty": 303,
+        "totalDistance": 1021,
+        "yieldPct": 76.3956904995103,
+        "blend": 76.6311977715878
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Apar + Chauhan",
+        "lane": "Silvassa - Kachhch - Mundra - Chittorgarh",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1450,
+        "distanceEmpty": 100,
+        "totalDistance": 1550,
+        "yieldPct": 69.5032258064516,
+        "blend": 71.9806368330465
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Evonith Steel",
+      "lane": "Debari - Wardha",
+      "febLoad": 559,
+      "distanceKms": 1081,
+      "yieldPct": 77.5670675300648,
+      "minKms": 500,
+      "maxKms": 600
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel",
+        "lane": "Nagpur - Mumbai",
+        "monthlyLoad": 600,
+        "distanceLoaded": 880,
+        "distanceEmpty": 100,
+        "totalDistance": 980,
+        "yieldPct": 83.5224489795918,
+        "blend": 78.2715447154471
+      },
+      {
+        "priority": null,
+        "returnCustomer": "JSW Steel + Chauhan",
+        "lane": "Dolvi - Anjar- Mundra -Chittorgarh",
+        "monthlyLoad": null,
+        "distanceLoaded": 1499,
+        "distanceEmpty": 130,
+        "totalDistance": 1629,
+        "yieldPct": 75.5801104972376,
+        "blend": null
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "AMNS",
+      "lane": "Chanderiya - Sanaswadi",
+      "febLoad": 155,
+      "distanceKms": 930,
+      "yieldPct": 87.9387096774194,
+      "minKms": 80,
+      "maxKms": 160
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1866,
+        "distanceEmpty": 470,
+        "totalDistance": 2336,
+        "yieldPct": 72.8253424657534,
+        "blend": 77.1289038579302
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Tata Steel",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 420,
+        "totalDistance": 1660,
+        "yieldPct": 60.5060240963855,
+        "blend": 70.3563706563707
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 155,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 540,
+        "totalDistance": 2380,
+        "yieldPct": 61.6806722689076,
+        "blend": 69.0583081570997
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 545,
+        "totalDistance": 2365,
+        "yieldPct": 61.3953488372093,
+        "blend": 68.8871016691958
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1900,
+        "distanceEmpty": 420,
+        "totalDistance": 2320,
+        "yieldPct": 59.7284482758621,
+        "blend": 67.8009230769231
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 420,
+        "totalDistance": 1660,
+        "yieldPct": 56.3385542168675,
+        "blend": 67.6853281853282
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 460,
+        "totalDistance": 2380,
+        "yieldPct": 58.8949579831933,
+        "blend": 67.0552870090634
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 500,
+        "totalDistance": 2320,
+        "yieldPct": 58.5344827586207,
+        "blend": 66.9486153846154
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 540,
+        "totalDistance": 2340,
+        "yieldPct": 57.3504273504274,
+        "blend": 66.0498470948012
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Hindustan Zinc",
+      "lane": "Chanderiya - Pune/Wadu Khurd",
+      "febLoad": 388,
+      "distanceKms": 949,
+      "yieldPct": 86.4612961011591,
+      "minKms": 700,
+      "maxKms": 900
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 388,
+        "distanceLoaded": 1866,
+        "distanceEmpty": 446,
+        "totalDistance": 2312,
+        "yieldPct": 73.5813148788927,
+        "blend": 77.3295829500153
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 523,
+        "totalDistance": 2363,
+        "yieldPct": 62.1244181125688,
+        "blend": 69.0977566425121
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 528,
+        "totalDistance": 2348,
+        "yieldPct": 61.839863713799,
+        "blend": 68.9268334849864
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1900,
+        "distanceEmpty": 400,
+        "totalDistance": 2300,
+        "yieldPct": 60.2478260869565,
+        "blend": 67.9045152354571
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 440,
+        "totalDistance": 2360,
+        "yieldPct": 59.3940677966102,
+        "blend": 67.1567754608643
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 400,
+        "totalDistance": 1640,
+        "yieldPct": 57.0256097560976,
+        "blend": 67.8152838933951
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 490,
+        "totalDistance": 2310,
+        "yieldPct": 58.7878787878788,
+        "blend": 66.8462012887389
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 530,
+        "totalDistance": 2330,
+        "yieldPct": 57.5965665236051,
+        "blend": 65.9505245501677
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Hindustan Zinc",
+      "lane": "Chanderiya - Ahmednagar",
+      "febLoad": 40,
+      "distanceKms": 915,
+      "yieldPct": 87.0544699453552,
+      "minKms": 1080,
+      "maxKms": 1080
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "MP Rajasthan(SPOT)",
+        "lane": "Ahmednagar - Bhilwara - Chanderiya",
+        "monthlyLoad": 40,
+        "distanceLoaded": 845,
+        "distanceEmpty": 205,
+        "totalDistance": 1050,
+        "yieldPct": 65.1428571428571,
+        "blend": 76.6602086438152
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1866,
+        "distanceEmpty": 566,
+        "totalDistance": 2432,
+        "yieldPct": 69.9506578947368,
+        "blend": 74.6264834179863
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 643,
+        "totalDistance": 2483,
+        "yieldPct": 59.1220298026581,
+        "blend": 66.6435668040023
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 648,
+        "totalDistance": 2468,
+        "yieldPct": 58.8330632090762,
+        "blend": 66.4661070056163
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1900,
+        "distanceEmpty": 520,
+        "totalDistance": 2420,
+        "yieldPct": 57.2603305785124,
+        "blend": 65.4347346326837
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 520,
+        "totalDistance": 1760,
+        "yieldPct": 53.1375,
+        "blend": 64.7390056074766
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 610,
+        "totalDistance": 2430,
+        "yieldPct": 55.8847736625514,
+        "blend": 64.4110134529148
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 560,
+        "totalDistance": 2480,
+        "yieldPct": 56.5201612903226,
+        "blend": 64.7495846833579
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 650,
+        "totalDistance": 2450,
+        "yieldPct": 54.7755102040816,
+        "blend": 63.5527013372957
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Silox India",
+      "lane": "Debari - Silvassa",
+      "febLoad": 513,
+      "distanceKms": 674,
+      "yieldPct": 80.4540059347181,
+      "minKms": 500,
+      "maxKms": 700
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Apar + Chauhan",
+        "lane": "Silvassa - Khavda - Mundra - Chittorgarh",
+        "monthlyLoad": 250,
+        "distanceLoaded": 1500,
+        "distanceEmpty": 250,
+        "totalDistance": 1750,
+        "yieldPct": 73.8285714285714,
+        "blend": 75.6707920792079
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Apar + Chauhan",
+        "lane": "Silvassa - Kachhch - Mundra - Chittorgarh",
+        "monthlyLoad": 250,
+        "distanceLoaded": 1450,
+        "distanceEmpty": 200,
+        "totalDistance": 1650,
+        "yieldPct": 65.2909090909091,
+        "blend": 69.6884681583477
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bajel Projects Limited",
+      "lane": "Chanderiya - Pune",
+      "febLoad": 0,
+      "distanceKms": 1030,
+      "yieldPct": 76.7883495145631,
+      "minKms": 150,
+      "maxKms": 150
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1866,
+        "distanceEmpty": 446,
+        "totalDistance": 2312,
+        "yieldPct": 73.5813148788927,
+        "blend": 74.5697187312986
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 523,
+        "totalDistance": 2363,
+        "yieldPct": 62.1244181125688,
+        "blend": 66.5758915414088
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 528,
+        "totalDistance": 2348,
+        "yieldPct": 61.839863713799,
+        "blend": 66.3978685612789
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1900,
+        "distanceEmpty": 400,
+        "totalDistance": 2300,
+        "yieldPct": 60.2478260869565,
+        "blend": 65.363963963964
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 400,
+        "totalDistance": 1640,
+        "yieldPct": 57.0256097560976,
+        "blend": 64.6494382022472
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 490,
+        "totalDistance": 2310,
+        "yieldPct": 58.7878787878788,
+        "blend": 64.3389221556886
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 530,
+        "totalDistance": 2330,
+        "yieldPct": 57.5965665236051,
+        "blend": 63.4797619047619
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl",
+        "lane": "Vasind - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1160,
+        "distanceEmpty": 490,
+        "totalDistance": 1650,
+        "yieldPct": 50.6666666666667,
+        "blend": 60.7059701492537
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 440,
+        "totalDistance": 2360,
+        "yieldPct": 59.3940677966102,
+        "blend": 64.6790560471976
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "AMNS",
+      "lane": "Chanderiya - Khopoli",
+      "febLoad": 627,
+      "distanceKms": 950,
+      "yieldPct": 76.5221052631579,
+      "minKms": 1000,
+      "maxKms": 1250
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1881,
+        "distanceEmpty": 470,
+        "totalDistance": 2351,
+        "yieldPct": 72.3606975754998,
+        "blend": 73.5583156619206
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 300,
+        "totalDistance": 1540,
+        "yieldPct": 65.2207792207792,
+        "blend": 69.5325301204819
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 40,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 440,
+        "totalDistance": 2280,
+        "yieldPct": 64.3859649122807,
+        "blend": 67.9554179566563
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 587,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 445,
+        "totalDistance": 2265,
+        "yieldPct": 64.1059602649007,
+        "blend": 67.7748055987558
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad- Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 300,
+        "totalDistance": 2220,
+        "yieldPct": 63.1396396396396,
+        "blend": 67.1501577287066
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 300,
+        "totalDistance": 1540,
+        "yieldPct": 60.7285714285714,
+        "blend": 66.7542168674699
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 340,
+        "totalDistance": 2260,
+        "yieldPct": 62.0221238938053,
+        "blend": 66.3133956386293
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 410,
+        "totalDistance": 2230,
+        "yieldPct": 60.8968609865471,
+        "blend": 65.5647798742138
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 450,
+        "totalDistance": 2250,
+        "yieldPct": 59.6444444444444,
+        "blend": 64.655
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Hindustan Zinc",
+      "lane": "Dariba - Ahmednagar",
+      "febLoad": 236,
+      "distanceKms": 963,
+      "yieldPct": 89.2180685358256,
+      "minKms": 1080,
+      "maxKms": 1080
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "MP Rajasthan(SPOT)",
+        "lane": "Ahmednagar - Bhilwara - Dariba",
+        "monthlyLoad": 300,
+        "distanceLoaded": 852,
+        "distanceEmpty": 248,
+        "totalDistance": 1100,
+        "yieldPct": 62.1818181818182,
+        "blend": 74.8022297624818
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1866,
+        "distanceEmpty": 596,
+        "totalDistance": 2462,
+        "yieldPct": 69.0982940698619,
+        "blend": 74.7553284671533
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 673,
+        "totalDistance": 2513,
+        "yieldPct": 58.4162355750099,
+        "blend": 66.9496547756041
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 678,
+        "totalDistance": 2498,
+        "yieldPct": 58.1265012009608,
+        "blend": 66.777520947703
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1900,
+        "distanceEmpty": 550,
+        "totalDistance": 2450,
+        "yieldPct": 56.5591836734694,
+        "blend": 65.7740990331087
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 590,
+        "totalDistance": 2510,
+        "yieldPct": 55.8446215139442,
+        "blend": 65.098473941837
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 550,
+        "totalDistance": 1790,
+        "yieldPct": 52.2469273743017,
+        "blend": 65.1794406102434
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 640,
+        "totalDistance": 2460,
+        "yieldPct": 55.2032520325203,
+        "blend": 64.7727139935729
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 680,
+        "totalDistance": 2480,
+        "yieldPct": 54.1129032258064,
+        "blend": 63.9317455707232
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Hindustan Zinc",
+      "lane": "Chanderiya - JNPT Mumbai/Thane",
+      "febLoad": 427,
+      "distanceKms": 942,
+      "yieldPct": 70.8768577494692,
+      "minKms": 1080,
+      "maxKms": 1080
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1881,
+        "distanceEmpty": 470,
+        "totalDistance": 2351,
+        "yieldPct": 72.3606975754998,
+        "blend": 71.9362283631947
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 64,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 410,
+        "totalDistance": 2250,
+        "yieldPct": 65.2444444444444,
+        "blend": 66.90664160401
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 363,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 415,
+        "totalDistance": 2235,
+        "yieldPct": 64.9664429530201,
+        "blend": 66.7189172175008
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 350,
+        "totalDistance": 2270,
+        "yieldPct": 64.568281938326,
+        "blend": 66.4184308841843
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 390,
+        "totalDistance": 2210,
+        "yieldPct": 61.447963800905,
+        "blend": 64.2658629441624
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 390,
+        "totalDistance": 2310,
+        "yieldPct": 60.6796536796537,
+        "blend": 63.6334563345633
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 350,
+        "totalDistance": 1590,
+        "yieldPct": 58.8188679245283,
+        "blend": 63.304897314376
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 430,
+        "totalDistance": 2230,
+        "yieldPct": 60.1793721973094,
+        "blend": 63.3562421185372
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "AMNS",
+      "lane": "Hazira - Mumbai",
+      "febLoad": 210,
+      "distanceKms": 410,
+      "yieldPct": 122.926829268293,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 390,
+        "yieldPct": 116.2,
+        "blend": 119.6475
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Valsad - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 376,
+        "yieldPct": 108.494680851064,
+        "blend": 116.022900763359
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Surat - Hazira",
+        "monthlyLoad": 76.74,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 395,
+        "yieldPct": 99.820253164557,
+        "blend": 111.588819875776
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "TSL ",
+        "lane": "Khopoli - Silvassa",
+        "monthlyLoad": 62,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 409,
+        "yieldPct": 87.2860635696822,
+        "blend": 105.128205128205
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli- surat",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 389,
+        "yieldPct": 92.2622107969152,
+        "blend": 107.997496871089
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Vapi - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 380,
+        "yieldPct": 90.2131578947368,
+        "blend": 107.191139240506
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Silvassa - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 390,
+        "yieldPct": 85.6461538461539,
+        "blend": 104.7525
+      },
+      {
+        "priority": null,
+        "returnCustomer": "JSW Steel Dolvi(TMT)",
+        "lane": "Vasind - Surat - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 395,
+        "yieldPct": 84.5620253164557,
+        "blend": 104.101863354037
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Jambusar - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 605,
+        "yieldPct": 89.9256198347107,
+        "blend": 103.256157635468
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli Valsad",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 357,
+        "yieldPct": 80.8963585434174,
+        "blend": 103.363754889179
+      },
+      {
+        "priority": "P10",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Bharuch - Hazira",
+        "monthlyLoad": 34.5,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 495,
+        "yieldPct": 75.6363636363636,
+        "blend": 97.060773480663
+      },
+      {
+        "priority": "P11",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Baroda",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 726,
+        "yieldPct": 66.4462809917355,
+        "blend": 86.830985915493
+      },
+      {
+        "priority": "P12",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Bharuch",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 695,
+        "yieldPct": 65.4820143884892,
+        "blend": 86.7963800904977
+      },
+      {
+        "priority": "P13",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Baroda - Hazira",
+        "monthlyLoad": 37.425,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 644,
+        "yieldPct": 59.8567546583851,
+        "blend": 84.3906546489564
+      },
+      {
+        "priority": "P14",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Vadodara",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 740,
+        "yieldPct": 58.027027027027,
+        "blend": 81.1652173913044
+      },
+      {
+        "priority": "P15",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Ahmedabad",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 943,
+        "yieldPct": 54.0466595970308,
+        "blend": 74.9194382852919
+      },
+      {
+        "priority": "P16",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Ahmedabad",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 931,
+        "yieldPct": 47.1235230934479,
+        "blend": 70.2997762863535
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "AMNS",
+      "lane": "Hazira - Pune",
+      "febLoad": 1095,
+      "distanceKms": 520,
+      "yieldPct": 124.038461538462,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 520,
+        "yieldPct": 87.15,
+        "blend": 105.594230769231
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Valsad - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 506,
+        "yieldPct": 80.6205533596838,
+        "blend": 102.625730994152
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "AMNS ",
+        "lane": "Pune - Surat",
+        "monthlyLoad": 573,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 540,
+        "yieldPct": 84.2572222222222,
+        "blend": 103.772547169811
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli- surat/valsad",
+        "monthlyLoad": 108,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 479,
+        "yieldPct": 73.4486430062631,
+        "blend": 99.7816816816817
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Surat - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 525,
+        "yieldPct": 75.1028571428571,
+        "blend": 99.4535885167464
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "TSL ",
+        "lane": "Khopoli - Silvassa",
+        "monthlyLoad": 135,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 499,
+        "yieldPct": 71.5430861723447,
+        "blend": 98.3316977428852
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Vapi - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 510,
+        "yieldPct": 67.2176470588235,
+        "blend": 95.9038834951456
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Jambusar - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 735,
+        "yieldPct": 74.0204081632653,
+        "blend": 94.7450199203187
+      },
+      {
+        "priority": "P10",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Silvassa - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 520,
+        "yieldPct": 64.2346153846154,
+        "blend": 94.1365384615385
+      },
+      {
+        "priority": "P11",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Bharuch - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 625,
+        "yieldPct": 59.904,
+        "blend": 89.0305676855895
+      },
+      {
+        "priority": "P12",
+        "returnCustomer": "AMNS ",
+        "lane": "Pune - Ahmedabad - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 974,
+        "yieldPct": 65.9342915811088,
+        "blend": 86.1579651941098
+      },
+      {
+        "priority": "P14",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Bharuch",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 785,
+        "yieldPct": 57.9745222929936,
+        "blend": 84.2988505747126
+      },
+      {
+        "priority": "P13",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Baroda",
+        "monthlyLoad": 165,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 816,
+        "yieldPct": 55.8333333333333,
+        "blend": 82.3802395209581
+      },
+      {
+        "priority": "P15",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Baroda - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 774,
+        "yieldPct": 51.8992248062016,
+        "blend": 80.8887171561051
+      },
+      {
+        "priority": "P16",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Vadodara",
+        "monthlyLoad": 143,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 830,
+        "yieldPct": 51.7349397590361,
+        "blend": 79.5851851851852
+      },
+      {
+        "priority": "P17",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Ahmedabad",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1033,
+        "yieldPct": 49.3378509196515,
+        "blend": 74.3502897617515
+      },
+      {
+        "priority": "P18",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Ahmedabad",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1021,
+        "yieldPct": 42.9696376101861,
+        "blend": 70.3257624918884
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "AMNS",
+      "lane": "Hazira - Jaipur",
+      "febLoad": 1742,
+      "distanceKms": 980,
+      "yieldPct": 80.2623979591837,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Gravita + Rushab(S)",
+        "lane": "Jaipur - Pune  - Surat - Hazira",
+        "monthlyLoad": 300,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1770,
+        "yieldPct": 77.683615819209,
+        "blend": 78.6026
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Gravita + Rushab(S)",
+        "lane": "Jaipur - Pune - Khopoli - Hazira",
+        "monthlyLoad": 300,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1780,
+        "yieldPct": 74.0640449438202,
+        "blend": 76.2649094202899
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Silox",
+        "lane": "Chanderiya - Silvassa - Hazira",
+        "monthlyLoad": 1000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1230,
+        "yieldPct": 48.4170731707317,
+        "blend": 62.5385294117647
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Agrawal Metals",
+      "lane": "Ahmedabad - Bhiwadi",
+      "febLoad": 0,
+      "distanceKms": 875,
+      "yieldPct": 114.285714285714,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL ",
+        "lane": "Sahibabad - Ahmedabad",
+        "monthlyLoad": 500,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1100,
+        "yieldPct": 63.9090909090909,
+        "blend": 86.2278481012658
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "KRBL(Spot)",
+        "lane": "Gaziabad - Ahmedabad ",
+        "monthlyLoad": 500,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1100,
+        "yieldPct": 51.8181818181818,
+        "blend": 79.4936708860759
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JK Lakshmi - Sirohi",
+      "lane": "Sirohi - Dastan ",
+      "febLoad": 3808,
+      "distanceKms": 551,
+      "yieldPct": 66.5698729582577,
+      "minKms": 4800,
+      "maxKms": 5500
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": " AMNS + JKLC",
+        "lane": "Hazira - Gandhinagar - Sirohi",
+        "monthlyLoad": 1779,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 590,
+        "yieldPct": 92.5508474576271,
+        "blend": 80.0043821209465
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": " AMNS + JKLC",
+        "lane": "Hazira - Anjar - Udaipur",
+        "monthlyLoad": 190,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1340,
+        "yieldPct": 72,
+        "blend": 70.4177683765204
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Taloja/Navi Mumbai",
+      "febLoad": 2676,
+      "distanceKms": 880,
+      "yieldPct": 83.8254545454545,
+      "minKms": 700,
+      "maxKms": 1000
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL and APAR",
+        "lane": "Mumbai - Khopoli - Silvassa - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1151,
+        "yieldPct": 98.0538662033015,
+        "blend": 91.8889217134416
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "AMNS + Raipur Orissa Roadline",
+        "lane": "Mumbai - Bhopal - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1251,
+        "yieldPct": 97.726618705036,
+        "blend": 91.9861098076021
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Bhopal - Nagpur",
+        "monthlyLoad": 319,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1261,
+        "yieldPct": 91.5083267248216,
+        "blend": 88.350490425035
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS + MP Rajasthan Transport",
+        "lane": "Mumbai - Bhopal - Harda - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1351,
+        "yieldPct": 86.1361954108068,
+        "blend": 85.2247422680412
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "Vansh + MP Rajasthan Transport",
+        "lane": "Mumbai - Bhopal - Harda - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1351,
+        "yieldPct": 81.0555144337528,
+        "blend": 82.1480950246526
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "JSW Tarapur + VBL",
+        "lane": "Mumbai - Bangalore - Chennai - Renugunta - Nagpur",
+        "monthlyLoad": 1320,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2534,
+        "yieldPct": 81.5635359116022,
+        "blend": 82.1465729349736
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Narsinghgarh- Bhopal - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1700,
+        "yieldPct": 80.7529411764706,
+        "blend": 81.8009302325581
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "Shiv Priya(Spot)",
+        "lane": "Mumbai - Nagpur",
+        "monthlyLoad": 237,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 846,
+        "yieldPct": 78.7375886524823,
+        "blend": 81.3316338354577
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "Shree Lakshmi(Spot)",
+        "lane": "Mumbai - Nagpur",
+        "monthlyLoad": 777,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 831,
+        "yieldPct": 75.1576413959085,
+        "blend": 79.6156633547633
+      },
+      {
+        "priority": "P10",
+        "returnCustomer": "Apar",
+        "lane": "Mumbai - Silvassa - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 980,
+        "yieldPct": 75.6122448979592,
+        "blend": 79.498064516129
+      },
+      {
+        "priority": "P11",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 864,
+        "yieldPct": 73.4490740740741,
+        "blend": 78.6848623853211
+      },
+      {
+        "priority": "P12",
+        "returnCustomer": "Mukand + JSW",
+        "lane": "Mumbai - Hospete - Bellary - Nagpur",
+        "monthlyLoad": 200,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2000,
+        "yieldPct": 75.8575,
+        "blend": 78.2921527777778
+      },
+      {
+        "priority": "P13",
+        "returnCustomer": "Nandan Petrochemical",
+        "lane": "JNPT - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 835,
+        "yieldPct": 72.3952095808383,
+        "blend": 78.2602915451895
+      },
+      {
+        "priority": "P14",
+        "returnCustomer": "Apar",
+        "lane": "Mumbai - Silvassa - Wardha - Nagpur",
+        "monthlyLoad": 250,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1000,
+        "yieldPct": 70.11,
+        "blend": 76.53
+      },
+      {
+        "priority": "P15",
+        "returnCustomer": "Vansh Logistics",
+        "lane": "Navi Mumbai - Nagpur",
+        "monthlyLoad": 2171,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 900,
+        "yieldPct": 66.8330666666667,
+        "blend": 75.233797752809
+      },
+      {
+        "priority": "P16",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Katni - Bhopal -  Nagpur",
+        "monthlyLoad": 142,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2036,
+        "yieldPct": 65.3909626719057,
+        "blend": 70.9541838134431
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Pune",
+      "febLoad": 973,
+      "distanceKms": 800,
+      "yieldPct": 92.1,
+      "minKms": 500,
+      "maxKms": 1000
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel + Apar",
+        "lane": "Pune - Khopoli - Silvassa - Aurangabad - Nagpur",
+        "monthlyLoad": 135,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1220,
+        "yieldPct": 90.1098360655738,
+        "blend": 90.8980198019802
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Bekaert ",
+        "lane": "Ranjangaon - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 770,
+        "yieldPct": 77.2727272727273,
+        "blend": 84.828025477707
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Tata Steel ",
+        "lane": "Khopoli - Nagpur",
+        "monthlyLoad": 345,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 962,
+        "yieldPct": 72.1621621621622,
+        "blend": 81.2145289443814
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Sanaswadi - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 820,
+        "yieldPct": 70.8658536585366,
+        "blend": 81.3518518518518
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "Nandan Petrochemical",
+        "lane": "JNPT - Nagpur",
+        "monthlyLoad": 240,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1000,
+        "yieldPct": 58.11,
+        "blend": 73.2166666666667
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Aurangabad",
+      "febLoad": 391,
+      "distanceKms": 575,
+      "yieldPct": 105.130434782609,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "M P Rajasthan(Spot) + Vansh ",
+        "lane": "Aurangabad - Mumbai - Nagpur",
+        "monthlyLoad": 400,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1250,
+        "yieldPct": 78.519808,
+        "blend": 86.9039780821918
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Chetak + Vansh(spot)",
+        "lane": "Aurangabad - Mumbai - Nagpur",
+        "monthlyLoad": 400,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1250,
+        "yieldPct": 72.119808,
+        "blend": 82.5204164383562
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Tata Steel ",
+        "lane": "Aurangabad - Khopoli - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1192,
+        "yieldPct": 58.238255033557,
+        "blend": 73.4974533106961
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Nashik",
+      "febLoad": 201,
+      "distanceKms": 662,
+      "yieldPct": 88.0966767371601,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Apar",
+        "lane": "Nashik - Silvassa - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1020,
+        "yieldPct": 72.6470588235294,
+        "blend": 84.3573667711599
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Sangli",
+      "febLoad": 221,
+      "distanceKms": 975,
+      "yieldPct": 90.48,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel ",
+        "lane": "Sangli - Khopoli - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1162,
+        "yieldPct": 59.7418244406196,
+        "blend": 73.7660271408517
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Solapur",
+      "febLoad": 161,
+      "distanceKms": 729,
+      "yieldPct": 83.6213991769547,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel ",
+        "lane": "Khopoli - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1152,
+        "yieldPct": 60.2604166666667,
+        "blend": 74.1128349788434
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Mumbai",
+      "febLoad": 39,
+      "distanceKms": 1660,
+      "yieldPct": 93.4048192771084,
+      "minKms": 1000,
+      "maxKms": 1500
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS + Raipur Orissa Roadline",
+        "lane": "Khopoli - Bhopal - Jajpur",
+        "monthlyLoad": 71,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2260,
+        "yieldPct": 78.3716814159292,
+        "blend": 84.7377551020408
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": 109,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2260,
+        "yieldPct": 75.3345132743363,
+        "blend": 82.9867346938776
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Narsinghgarh- Bhopal - Jajpur",
+        "monthlyLoad": 248,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2660,
+        "yieldPct": 73.2451127819549,
+        "blend": 80.9916666666667
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "TSL ",
+        "lane": "Khopoli - Jamshedpur",
+        "monthlyLoad": 80,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2015,
+        "yieldPct": 70.4218362282878,
+        "blend": 80.8032653061225
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Dhenkenal/Jajpur",
+        "monthlyLoad": 229,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1770,
+        "yieldPct": 62.6305084745763,
+        "blend": 77.5241982507289
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Katni - Bhopal -  Jajpur",
+        "monthlyLoad": 404,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2920,
+        "yieldPct": 68.2191780821918,
+        "blend": 77.3475982532751
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "CJ Darcl + Softstone",
+        "lane": "Vasind -Jaipur - Khimsar - Bhadrak -Kalinganagar",
+        "monthlyLoad": 301,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 3570,
+        "yieldPct": 60.4806722689076,
+        "blend": 70.9307839388145
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Surat",
+      "febLoad": 944,
+      "distanceKms": 1800,
+      "yieldPct": 82.0882777777778,
+      "minKms": 500,
+      "maxKms": 700
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS + Raipur Orissa Roadline",
+        "lane": "Surat - Hazira - Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2625,
+        "yieldPct": 83.9314285714286,
+        "blend": 83.1816723163842
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "AMNS + Vansh + Raipur Orissa Road",
+        "lane": "Surat - Hazira - Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2625,
+        "yieldPct": 81.3165714285714,
+        "blend": 81.6304858757062
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Rudra/Jamshedpur Bhilai(S)",
+        "lane": "Halol - Dhenkanal",
+        "monthlyLoad": 154,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1790,
+        "yieldPct": 63.6871508379888,
+        "blend": 72.9133426183844
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Dev Corp + Chauhan Rl",
+        "lane": "Modassa - Kandla - Bhuj - Angul - Kalinganagar",
+        "monthlyLoad": 73,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 3135,
+        "yieldPct": 61.8181818181818,
+        "blend": 69.2115298885512
+      },
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS + Choudhury (Spot)",
+        "lane": "Surat - Hazira - Jajpur - Khimsar - Bhadrak",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 3556,
+        "yieldPct": 59.1864876265467,
+        "blend": 66.8831310679612
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Ahmedabad",
+      "febLoad": 114,
+      "distanceKms": 1730,
+      "yieldPct": 77.8901734104046,
+      "minKms": 800,
+      "maxKms": 1500
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Merino - Vansh - Raipur Orissa Road",
+        "lane": "Halol - Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": 142,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2978,
+        "yieldPct": 85.3781061114842,
+        "blend": 82.6265930331351
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "AMNS + Vansh + Raipur Orissa Road",
+        "lane": "Surat - Hazira - Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2876,
+        "yieldPct": 74.2197496522949,
+        "blend": 75.5983499782892
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Dev Corp + MD Movers",
+        "lane": "Modassa - Kandla -Kachh - Jajpur - Kal",
+        "monthlyLoad": 120,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2799,
+        "yieldPct": 68.0242943908539,
+        "blend": 71.7928902627512
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Dev Corp + Chauhan Rl",
+        "lane": "Modassa - Kandla - Bhuj - Angul - Kalinganagar",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2965,
+        "yieldPct": 65.362563237774,
+        "blend": 69.9787007454739
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "Rudra/Jamshedpur Bhilai(S)",
+        "lane": "Halol - Dhenkanal",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1885,
+        "yieldPct": 55.2785145888594,
+        "blend": 66.0995850622407
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Chennai",
+      "febLoad": 0,
+      "distanceKms": 1440,
+      "yieldPct": 94.1027777777778,
+      "minKms": 800,
+      "maxKms": 1500
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "VBL",
+        "lane": "Chennai - Renigunta - Cuttack - Kalinganagar",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1483.5,
+        "yieldPct": 67.9312436804853,
+        "blend": 80.8223020352317
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Nagpur",
+      "febLoad": 122,
+      "distanceKms": 874,
+      "yieldPct": 83.9588100686499,
+      "minKms": 300,
+      "maxKms": 600
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL + Vansh + Rai. Orissa Road",
+        "lane": "Nagpur - Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 3140,
+        "yieldPct": 78.9095541401274,
+        "blend": 80.0089686098655
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Pune",
+      "febLoad": 33,
+      "distanceKms": 1615,
+      "yieldPct": 92.5077399380805,
+      "minKms": 800,
+      "maxKms": 1200
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL ",
+        "lane": "Khopoli - Jamshedpur",
+        "monthlyLoad": 126,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2105,
+        "yieldPct": 65.3681710213777,
+        "blend": 77.1505376344086
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Dhenkenal",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1820,
+        "yieldPct": 62.8747252747253,
+        "blend": 76.8069868995633
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - NCR",
+      "febLoad": 325,
+      "distanceKms": 1630,
+      "yieldPct": 81.5631901840491,
+      "minKms": 800,
+      "maxKms": 1500
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL + Sofstone/Chaudhury(S)",
+        "lane": "Ghaziabad - Jaipur - Khimsar - Bhadrak",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2702,
+        "yieldPct": 59.6284233900814,
+        "blend": 67.881809787627
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Bhadana Transport + Softstone/Chaudhury(S)",
+        "lane": "Faridabad - Jaipur - Khimsar - Bhadrak - Kalinganagar",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2750,
+        "yieldPct": 56.8421818181818,
+        "blend": 66.0420091324201
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Steel",
+      "lane": "Toranagallu - Taloja",
+      "febLoad": 4864,
+      "distanceKms": 770,
+      "yieldPct": 74.4805714285714,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Steel Vasind + Uflex",
+        "lane": "Vasind  - Hazira - Surat - Dharwad",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1495,
+        "yieldPct": 91.8518394648829,
+        "blend": 85.9463752759382
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Mukand(40T MG)",
+        "lane": "Mumbai - Koppal",
+        "monthlyLoad": 500,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 870,
+        "yieldPct": 94.2528735632184,
+        "blend": 84.9695365853659
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "TSL Khopoli",
+        "lane": "Khopoli - Hosur - Toranagallu",
+        "monthlyLoad": 446,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1485,
+        "yieldPct": 74.7474747474748,
+        "blend": 74.6563370288248
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "JSW Steel Vasind + AMNS",
+        "lane": "Vasind  - Silvassa - Hazira - Bangalore - Toranagallu",
+        "monthlyLoad": 843,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2130,
+        "yieldPct": 72.7708920187793,
+        "blend": 73.2248413793103
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "JSW Dolvi(TMT) + AMNS",
+        "lane": "Dolvi  - Surat - Hazira - Bangalore -Toranagallu",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2180,
+        "yieldPct": 72.3009174311927,
+        "blend": 72.8698440677966
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "JSW Steel Tarapur",
+        "lane": "Tarapur -Bengaluru - Toranagallu",
+        "monthlyLoad": 1049,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1620,
+        "yieldPct": 69.6432098765432,
+        "blend": 71.201690376569
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Steel",
+      "lane": "Toranagallu - Pune",
+      "febLoad": 1585,
+      "distanceKms": 670,
+      "yieldPct": 84.2362388059701,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Baekert ",
+        "lane": "Ranjangaon - Sriperumbudur ",
+        "monthlyLoad": 227,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1205,
+        "yieldPct": 102.93112033195,
+        "blend": 86.2879551401869
+      },
+      {
+        "priority": null,
+        "returnCustomer": "TSL",
+        "lane": "Chennai - Bangalore - Toranagallu",
+        "monthlyLoad": 227,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 800,
+        "yieldPct": 62.9375,
+        "blend": null
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Bekaert + VBL(Seasonal)",
+        "lane": "Ranjangaon - Sriperumbudur - Renugunta - Dharwad - Toranagallu",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2204,
+        "yieldPct": 83.4655172413793,
+        "blend": 83.6451913709116
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Bangalore - Toranagallu",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1340,
+        "yieldPct": 74.5820895522388,
+        "blend": 77.8001393034826
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS+RDK",
+        "lane": "Sanaswadi - Mala - Cochin - Bellary",
+        "monthlyLoad": 583,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2510,
+        "yieldPct": 70.7509960159363,
+        "blend": 73.5922264150943
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Steel",
+      "lane": "Toranagallu - Nashik",
+      "febLoad": 450,
+      "distanceKms": 889,
+      "yieldPct": 70.5000674915636,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Steel Vasind + Uflex",
+        "lane": "Vasind  - Hazira - Surat - Dharwad",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1555,
+        "yieldPct": 88.3077170418006,
+        "blend": 81.8302209492635
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "TSL Khopoli",
+        "lane": "Khopoli - Hosur - Toranagallu",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1635,
+        "yieldPct": 67.8899082568807,
+        "blend": 68.8092551505547
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Steel",
+      "lane": "Toranagallu - Khed",
+      "febLoad": 115,
+      "distanceKms": 670,
+      "yieldPct": 86.2767164179104,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL Khopoli",
+        "lane": "Khopoli - Hosur - Toranagallu",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1610,
+        "yieldPct": 68.944099378882,
+        "blend": 74.0374561403509
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Hindalco",
+      "lane": "Raipur - Halol",
+      "febLoad": 1105,
+      "distanceKms": 1405,
+      "yieldPct": 76.5327402135231,
+      "minKms": 0,
+      "maxKms": 0
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS + Bekaert",
+        "lane": "Hazira - Pune - Lonand - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1860,
+        "yieldPct": 90.1612903225806,
+        "blend": 84.2966309341501
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "AMNS + Vansh",
+        "lane": "Halol - Hazira - Mumbai - Raipur",
+        "monthlyLoad": 81,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1810,
+        "yieldPct": 80.2872928176796,
+        "blend": 78.646500777605
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Merino + AMNS",
+        "lane": "Halol - Mumbai - Khopoli - Nagpur",
+        "monthlyLoad": 40,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2010,
+        "yieldPct": 73.363184079602,
+        "blend": 74.6672035139092
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS",
+        "lane": "Halol - Hazira - Pune - Sanaswadi - Nagpur",
+        "monthlyLoad": 80,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1800,
+        "yieldPct": 60.6388888888889,
+        "blend": 67.6063962558502
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS",
+        "lane": "Halol - Hazira - Mumbai - Khopoli - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1810,
+        "yieldPct": 58.9281767955801,
+        "blend": 66.6216174183515
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS + Vansh",
+        "lane": "Halol - Hazira - Mumbai - JNPT - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1820,
+        "yieldPct": 55.8065934065934,
+        "blend": 64.8361240310078
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Mumbai",
+      "febLoad": 356,
+      "distanceKms": 1408,
+      "yieldPct": 97.6988636363636,
+      "minKms": 500,
+      "maxKms": 800
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Vansh+Vikas trailer(Spot) ",
+        "lane": "Mumbai - Nagpur - Raipur",
+        "monthlyLoad": 319,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1456,
+        "yieldPct": 70.8131868131868,
+        "blend": 84.0307262569832
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Raipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1375,
+        "yieldPct": 66.88,
+        "blend": 82.4721523535753
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Bellary",
+      "febLoad": 600,
+      "distanceKms": 1613,
+      "yieldPct": 92.1015499070056,
+      "minKms": 80,
+      "maxKms": 120
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Steel +Vansh(spot)",
+        "lane": "Toranagallu - Mumbai - Nagpur - Raipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1881,
+        "yieldPct": 75.0951834130782,
+        "blend": 82.9461476817401
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Surat",
+      "febLoad": 117,
+      "distanceKms": 1420,
+      "yieldPct": 86.5704225352113,
+      "minKms": 80,
+      "maxKms": 120
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS Hazira",
+        "lane": "Hazira - Taloja",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 370,
+        "yieldPct": 108.108108108108,
+        "blend": 78.2606214331008
+      },
+      {
+        "priority": null,
+        "returnCustomer": "Vansh(Spot)",
+        "lane": "Mumbai - Raipur",
+        "monthlyLoad": 1,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1364,
+        "yieldPct": 61.5131964809384,
+        "blend": null
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Ahmedabad",
+      "febLoad": 571,
+      "distanceKms": 1532,
+      "yieldPct": 86.298955613577,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AshTech +Vansh(Spot)",
+        "lane": "Jhagadia - Panvel - Raipur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1787,
+        "yieldPct": 71.5299384443201,
+        "blend": 78.3470924977403
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Banglore",
+      "febLoad": 901,
+      "distanceKms": 1821,
+      "yieldPct": 90.8058758923668,
+      "minKms": 80,
+      "maxKms": 120
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Steel +Vansh(spot)",
+        "lane": "Toranagallu - Mumbai - Nagpur - Raipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2221,
+        "yieldPct": 63.5992976136875,
+        "blend": 75.8563928748145
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Jaipur",
+      "febLoad": 153,
+      "distanceKms": 1746,
+      "yieldPct": 71.1683848797251,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Choudhry(Spot)",
+        "lane": "Jaipur - Khimsar - Raigarh",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1785,
+        "yieldPct": 65.9943977591036,
+        "blend": 68.5528178986123
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Empty return",
+      "lane": "Raigarh - Nagpur",
+      "febLoad": 80,
+      "distanceKms": 610,
+      "yieldPct": 112.524590163934,
+      "minKms": 80,
+      "maxKms": 120
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "TSL Tarapur",
+      "lane": "Tarapur - Taloja",
+      "febLoad": 4245,
+      "distanceKms": 140,
+      "yieldPct": 173.535714285714,
+      "minKms": 0,
+      "maxKms": 0
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "Empty",
+        "lane": null,
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 0,
+        "yieldPct": 0,
+        "blend": 86.7678571428571
+      },
+      {
+        "priority": null,
+        "returnCustomer": "Empty",
+        "lane": null,
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 0,
+        "yieldPct": 0,
+        "blend": 81.2838709677419
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Tarapur",
+      "lane": "Tarapur - Taloja",
+      "febLoad": 4245,
+      "distanceKms": 140,
+      "yieldPct": 161.428571428571,
+      "minKms": 0,
+      "maxKms": 0
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Palghar - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 240,
+        "yieldPct": 88.6458333333333,
+        "blend": 115.460526315789
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Vasai - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 250,
+        "yieldPct": 88.8,
+        "blend": 114.871794871795
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 255,
+        "yieldPct": 86.3333333333333,
+        "blend": 112.949367088608
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Boisar - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 252,
+        "yieldPct": 84.4246031746032,
+        "blend": 111.926020408163
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Wada - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 265,
+        "yieldPct": 83.7735849056604,
+        "blend": 110.617283950617
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Bhiwandi - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 255,
+        "yieldPct": 81.4,
+        "blend": 109.764556962025
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Navi Mumbai - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 235,
+        "yieldPct": 70.6936170212766,
+        "blend": 104.568
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Silvassa - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 390,
+        "yieldPct": 83.4871794871795,
+        "blend": 104.075471698113
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Nani - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 390,
+        "yieldPct": 83.4871794871795,
+        "blend": 104.075471698113
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Thane- Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 230,
+        "yieldPct": 66.7608695652174,
+        "blend": 102.581081081081
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Taloja- Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 235,
+        "yieldPct": 55.736170212766,
+        "blend": 95.1946666666667
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Vashi - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 240,
+        "yieldPct": 51.6458333333333,
+        "blend": 92.0921052631579
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Rabale- Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 240,
+        "yieldPct": 53.65,
+        "blend": 93.3578947368421
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Kalamboli - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 250,
+        "yieldPct": 46.472,
+        "blend": 87.7384615384615
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Panvel - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 240,
+        "yieldPct": 43.1666666666667,
+        "blend": 86.7368421052632
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Valsad - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 450,
+        "yieldPct": 62.4888888888889,
+        "blend": 85.9661016949153
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Khalapur - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 235,
+        "yieldPct": 29.1276595744681,
+        "blend": 78.52
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Tarapur",
+      "lane": "Tarapur - Pune",
+      "febLoad": 4046,
+      "distanceKms": 310,
+      "yieldPct": 151.225806451613,
+      "minKms": 0,
+      "maxKms": 0
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Palghar - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 320,
+        "yieldPct": 80.9375,
+        "blend": 115.52380952381
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Wada -Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 325,
+        "yieldPct": 74,
+        "blend": 111.700787401575
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 345,
+        "yieldPct": 75.0724637681159,
+        "blend": 111.114503816794
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS + Chetak",
+        "lane": "Pune - Talegaon - Aurangabad- Tarapur",
+        "monthlyLoad": 39,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 745,
+        "yieldPct": 94.8161073825503,
+        "blend": 111.391469194313
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Bhiwandi - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 335,
+        "yieldPct": 66.2686567164179,
+        "blend": 107.100775193798
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Daman - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 480,
+        "yieldPct": 78.625,
+        "blend": 107.113924050633
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Silvasa - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 480,
+        "yieldPct": 78.625,
+        "blend": 107.113924050633
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Thane -Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 325,
+        "yieldPct": 65.4615384615385,
+        "blend": 107.330708661417
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Vasai -Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 340,
+        "yieldPct": 62.5735294117647,
+        "blend": 104.853846153846
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Rabale - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 340,
+        "yieldPct": 57.1323529411765,
+        "blend": 102.007692307692
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Valsad -Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 541,
+        "yieldPct": 71.81146025878,
+        "blend": 100.740305522914
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Navi Mumbai - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 325,
+        "yieldPct": 51.2307692307692,
+        "blend": 100.047244094488
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Talegaon - Nashik- Tarapur",
+        "monthlyLoad": 261,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 527,
+        "yieldPct": 58.9051233396584,
+        "blend": 93.0979689366786
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Panvel - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 330,
+        "yieldPct": 50.4545454545455,
+        "blend": 99.265625
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Taloja - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 330,
+        "yieldPct": 50.4545454545455,
+        "blend": 99.265625
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Kalamboli - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 340,
+        "yieldPct": 48.4264705882353,
+        "blend": 97.4538461538462
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Khalapur - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 330,
+        "yieldPct": 44.8484848484849,
+        "blend": 96.375
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Toranagallu",
+      "lane": "Toranagallu - Pune",
+      "febLoad": 4978,
+      "distanceKms": 600,
+      "yieldPct": 122.186,
+      "minKms": 4000,
+      "maxKms": 6000
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "Empty",
+        "lane": null,
+        "monthlyLoad": 4978,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 602,
+        "yieldPct": 0,
+        "blend": 61.093
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "RD - Dariba",
+      "febLoad": 30000,
+      "distanceKms": 1.5,
+      "yieldPct": 1690,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Empty",
+        "lane": "Dariba - RD",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1.5,
+        "yieldPct": 0,
+        "blend": 845
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "SK - Dariba",
+      "febLoad": 129000,
+      "distanceKms": 8,
+      "yieldPct": 409.5,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P2",
+        "returnCustomer": "Empty",
+        "lane": "Dariba - SK",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 8,
+        "yieldPct": 0,
+        "blend": 204.75
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "RD - Debari",
+      "febLoad": 6000,
+      "distanceKms": 65,
+      "yieldPct": 172.8,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "HZL Concentrate",
+        "lane": "Debari - Zawar - Dariba",
+        "monthlyLoad": 24000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 170,
+        "yieldPct": 94.2882352941176,
+        "blend": 116.004255319149
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "HZL Concentrate",
+        "lane": "Debari - Zawar - Dariba",
+        "monthlyLoad": 24000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 170,
+        "yieldPct": 94.2882352941176,
+        "blend": 113.469135802469
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "Agucha - Dariba",
+      "febLoad": 228000,
+      "distanceKms": 155,
+      "yieldPct": 120.522580645161,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "HZL Concentrate",
+        "lane": "Dariba - RD - Debari - Zawar - Chanderiya",
+        "monthlyLoad": 25000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 273,
+        "yieldPct": 112.571428571429,
+        "blend": 115.450934579439
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "HZL Concentrate",
+        "lane": "Dariba - SK - Debari - Zawar - Chanderiya",
+        "monthlyLoad": 25000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 286,
+        "yieldPct": 108.545454545455,
+        "blend": 112.755102040816
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "Agucha - Debari",
+      "febLoad": 84000,
+      "distanceKms": 225,
+      "yieldPct": 108.333333333333,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "HZL Concentrate",
+        "lane": "Debari - Zawar - Debari",
+        "monthlyLoad": 12000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 110,
+        "yieldPct": 117.709090909091,
+        "blend": 111.411940298507
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "Zawar - Chanderiya",
+      "febLoad": 25000,
+      "distanceKms": 150,
+      "yieldPct": 130,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Empty",
+        "lane": "Chanderiya - Agucha ",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 120,
+        "yieldPct": 0,
+        "blend": 72.2222222222222
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "Agucha - Chanderiya",
+      "febLoad": 258000,
+      "distanceKms": 120,
+      "yieldPct": 124.475,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Empty",
+        "lane": "Chanderiya - SK/RD",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 95,
+        "yieldPct": 0,
+        "blend": 69.4744186046512
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "RD - Chanderiya",
+      "febLoad": 9000,
+      "distanceKms": 90,
+      "yieldPct": 119.166666666667,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Empty",
+        "lane": "Chanderiya - RD",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 90,
+        "yieldPct": 0,
+        "blend": 59.5833333333333
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "SK - Chanderiya",
+      "febLoad": 120000,
+      "distanceKms": 98,
+      "yieldPct": 120.183673469388,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Empty",
+        "lane": "Chanderiya - SK",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 98,
+        "yieldPct": 0,
+        "blend": 60.0918367346939
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Dolvi",
+      "lane": "Dolvi - Umargam",
+      "febLoad": 314,
+      "distanceKms": 265,
+      "yieldPct": 137.015094339623,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Dolvi",
+      "lane": "Dolvi - Gandhinagar",
+      "febLoad": 120,
+      "distanceKms": 596,
+      "yieldPct": 126.946308724832,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Dolvi",
+      "lane": "Dolvi - Dholera",
+      "febLoad": 704,
+      "distanceKms": 621,
+      "yieldPct": 121.458937198068,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Dolvi",
+      "lane": "Dolvi - Igatpuri",
+      "febLoad": 117,
+      "distanceKms": 225,
+      "yieldPct": 121.210451555556,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Dolvi",
+      "lane": "Dolvi - Surat",
+      "febLoad": 706,
+      "distanceKms": 408,
+      "yieldPct": 120.058823529412,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "MP Birla",
+      "lane": "Mukutban - Harda",
+      "febLoad": 160,
+      "distanceKms": 480,
+      "yieldPct": 135.333333333333,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "Market",
+        "lane": "Harda - Mukutban",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 463,
+        "yieldPct": 64.7948164146868,
+        "blend": 100.699893955461
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "MP Birla",
+      "lane": "Mukutban - Bhopal",
+      "febLoad": 2160,
+      "distanceKms": 535,
+      "yieldPct": 124.859813084112,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "Market",
+        "lane": "Bhopal - Mukutban",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 497,
+        "yieldPct": 70.4225352112676,
+        "blend": 98.6434108527132
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "MP Birla",
+      "lane": "Mukutban - Jabalpur",
+      "febLoad": 320,
+      "distanceKms": 485,
+      "yieldPct": 114.886597938144,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "Market",
+        "lane": "Katni-Wani-Mukut",
+        "monthlyLoad": 391,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 689,
+        "yieldPct": 65.3904208998549,
+        "blend": 85.8381601362862
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Nagpur",
+      "febLoad": 0,
+      "distanceKms": 640,
+      "yieldPct": 92.96875,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel",
+        "lane": "Nagpur - Pune",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 750,
+        "yieldPct": 104,
+        "blend": 98.9208633093525
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Sriperumbudur",
+      "febLoad": 227,
+      "distanceKms": 1160,
+      "yieldPct": 106.924137931034,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL + JSW",
+        "lane": "Chennai - Hosur - Toranagallu - Pune",
+        "monthlyLoad": 618,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1460,
+        "yieldPct": 71.5753424657534,
+        "blend": 87.2259541984733
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Pondicherry",
+      "febLoad": 0,
+      "distanceKms": 1170,
+      "yieldPct": 102.038461538462,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL + JSW",
+        "lane": "Chennai - Hosur - Toranagallu - Pune",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1590,
+        "yieldPct": 65.7232704402516,
+        "blend": 81.1177536231884
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Halol",
+      "febLoad": 0,
+      "distanceKms": 630,
+      "yieldPct": 79.8,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS",
+        "lane": "Hazira - Pune",
+        "monthlyLoad": 400,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 767,
+        "yieldPct": 76.271186440678,
+        "blend": 77.8625626342162
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Chittoor",
+      "febLoad": 149,
+      "distanceKms": 1040,
+      "yieldPct": 100.682692307692,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "VBL(Seasonal)",
+        "lane": "Chitoor- Supa - Ranj",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1097,
+        "yieldPct": 77.0045578851413,
+        "blend": 88.5278427702386
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Suraj Group",
+        "lane": "Chitoor- Chennai - Pune - Ranj",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1251,
+        "yieldPct": 62.7498001598721,
+        "blend": 79.9694456569184
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "VBL(Seasonal)",
+        "lane": "Chitoor- Aurangabad - Ranj",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1283,
+        "yieldPct": 58.2883865939205,
+        "blend": 77.2681876883341
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "JSW",
+        "lane": "Toranagallu - Pune",
+        "monthlyLoad": 149,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1040,
+        "yieldPct": 54.2961538461538,
+        "blend": 77.4894230769231
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Haridwar",
+      "febLoad": 0,
+      "distanceKms": 1600,
+      "yieldPct": 83.671875,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL",
+        "lane": "Sahibabad - Sanaswadi",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1820,
+        "yieldPct": 62.9406593406593,
+        "blend": 72.6394736842105
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Perambalur",
+      "febLoad": 283,
+      "distanceKms": 1332,
+      "yieldPct": 102.852852852853,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Suraj Group",
+        "lane": "Chitoor- Chennai - Pune - Ranj",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1251,
+        "yieldPct": 62.7498001598721,
+        "blend": 83.4301200154859
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Steel",
+        "lane": "Toranagallu - Pune",
+        "monthlyLoad": 290,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1360,
+        "yieldPct": 39.8161764705882,
+        "blend": 71.0066864784547
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Uflex",
+      "lane": "Surat - Dharwad",
+      "febLoad": 512,
+      "distanceKms": 870,
+      "yieldPct": 105.086206896552,
+      "minKms": 400,
+      "maxKms": 400
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Steel",
+        "lane": "Bellary - Taloja",
+        "monthlyLoad": 500,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1005,
+        "yieldPct": 55.8865671641791,
+        "blend": 84.6565121412804
+      },
+      {
+        "priority": null,
+        "returnCustomer": "JSW Steel",
+        "lane": "Vasind - Hazira - Surat",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 390,
+        "yieldPct": 113.220512820513,
+        "blend": null
+      },
+      {
+        "priority": null,
+        "returnCustomer": "JSW Steel",
+        "lane": "Bellary - Taloja",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1005,
+        "yieldPct": 57.3970149253731,
+        "blend": 81.6093126385809
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Surat",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 380,
+        "yieldPct": 91.8947368421053,
+        "blend": null
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Steel",
+        "lane": "Bellary - Taloja",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1005,
+        "yieldPct": 57.3970149253731,
+        "blend": 74.276261682243
+      },
+      {
+        "priority": null,
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Vadodara",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 800,
+        "yieldPct": 61.975,
+        "blend": null
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Emami",
+      "lane": "Kandla - Delhi",
+      "febLoad": 342,
+      "distanceKms": 1258,
+      "yieldPct": 87.5993640699523,
+      "minKms": 400,
+      "maxKms": 600
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL & Dev Corporation",
+        "lane": "Sahibabad - Ahm - Modasa - Kandla",
+        "monthlyLoad": 259,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1650,
+        "yieldPct": 58.7272727272727,
+        "blend": 71.2173314993122
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSL & Dev Corporation",
+        "lane": "Hissar-Ahm-Modasa-Kandla",
+        "monthlyLoad": 109,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1766,
+        "yieldPct": 45.2740656851642,
+        "blend": 62.8816137566138
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Merino Laminates",
+      "lane": "Halol - Shirwal",
+      "febLoad": 0,
+      "distanceKms": 760,
+      "yieldPct": 110.526315789474,
+      "minKms": 200,
+      "maxKms": 400
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Bekaert",
+        "lane": "Ranjangaon - Halol",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 736,
+        "yieldPct": 120.652173913043,
+        "blend": 115.508021390374
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Vadodara",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 740,
+        "yieldPct": 67,
+        "blend": 89.0533333333333
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Merino Laminates",
+      "lane": "Dahej - Hosur",
+      "febLoad": 262,
+      "distanceKms": 1500,
+      "yieldPct": 100.8,
+      "minKms": 200,
+      "maxKms": 400
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Merino Laminates",
+        "lane": "Hosur - Surat",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1568,
+        "yieldPct": 89.2857142857143,
+        "blend": 94.9152542372881
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Steel + TSL",
+        "lane": "Bellary - Pune - Khopoli - Vadodara",
+        "monthlyLoad": 169,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1615,
+        "yieldPct": 65.0061919504644,
+        "blend": 82.2423756019262
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "JSW Steel + TSL",
+        "lane": "Bellary - Mumbai - Vadodara - Dahej",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1625,
+        "yieldPct": 64.2498461538461,
+        "blend": 81.79392
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "VBL+ Chetak(S)",
+        "lane": "Krishnagiri - Aurangabad - Surat",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1500,
+        "yieldPct": 72.808,
+        "blend": 86.804
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "Exide Industries",
+        "lane": "Hosur - Ahm",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1930,
+        "yieldPct": 45.5958549222798,
+        "blend": 69.7376093294461
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Merino Laminates",
+      "lane": "Halol - Hosur",
+      "febLoad": 933,
+      "distanceKms": 1740,
+      "yieldPct": 94.8275862068966,
+      "minKms": 200,
+      "maxKms": 400
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Merino Laminates",
+        "lane": "Hosur - Surat",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1580,
+        "yieldPct": 88.6075949367089,
+        "blend": 91.8674698795181
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "VBL+ Chetak(S) + AMNS",
+        "lane": "Krishnagiri - Aurangabad - Surat - Halol",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1690,
+        "yieldPct": 87.6994082840237,
+        "blend": 91.3154518950437
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "JSW Steel + TSL",
+        "lane": "Bellary - Pune - Khopoli - Vadodara",
+        "monthlyLoad": 100,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1570,
+        "yieldPct": 66.8694267515924,
+        "blend": 81.5664652567976
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "JSW Steel + TSL",
+        "lane": "Bellary - Mumbai - Vadodara - Halol",
+        "monthlyLoad": 100,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1550,
+        "yieldPct": 67.3587096774194,
+        "blend": 81.8863221884499
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "Exide Industries",
+        "lane": "Hosur - Ahm",
+        "monthlyLoad": 100,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1770,
+        "yieldPct": 49.7175141242938,
+        "blend": 72.0797720797721
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Merino Laminates",
+      "lane": "Halol - Hapur",
+      "febLoad": 38,
+      "distanceKms": 1100,
+      "yieldPct": 93.6363636363636,
+      "minKms": 300,
+      "maxKms": 300
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel",
+        "lane": "Sahibabad - Ahm",
+        "monthlyLoad": 100,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1152,
+        "yieldPct": 59.375,
+        "blend": 76.1101243339254
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSL Hisar",
+        "lane": "Hisar - Ahmedabad",
+        "monthlyLoad": 50,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1380,
+        "yieldPct": 47.4782608695652,
+        "blend": 67.9516129032258
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Softstone/Choudhary Transport",
+      "lane": "Khimsar - Salem",
+      "febLoad": 78,
+      "distanceKms": 2372,
+      "yieldPct": 77.2765598650928,
+      "minKms": 600,
+      "maxKms": 800
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Varun Beverages(Seasonal)",
+        "lane": "Hosur/Chittoor-Kota-Jodhpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2320,
+        "yieldPct": 80.6495689655172,
+        "blend": 78.9443734015345
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Exide + JSL",
+        "lane": "Hosur - Delhi - Hisar - Jodhpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2975,
+        "yieldPct": 62.4036974789916,
+        "blend": 69.0014961660744
+      },
+      {
+        "priority": null,
+        "returnCustomer": "JSW",
+        "lane": "Salem - Jaipur",
+        "monthlyLoad": 115,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2550,
+        "yieldPct": 56.8509803921569,
+        "blend": 66.6944331572531
+      },
+      {
+        "priority": null,
+        "returnCustomer": "Spot",
+        "lane": "Hosur - Jaipur",
+        "monthlyLoad": 78,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2563,
+        "yieldPct": 50.4096761607491,
+        "blend": 63.323201621074
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Softstone/Choudhary Transport",
+      "lane": "Khimsar - Bhadrak",
+      "febLoad": 301,
+      "distanceKms": 2000,
+      "yieldPct": 65.905,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel + Mukand + JSL",
+        "lane": "Kalinganagar - Mumbai - Bahadurgarh - Hisar - Jodhpur",
+        "monthlyLoad": 38,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 4095,
+        "yieldPct": 77.7304029304029,
+        "blend": 73.8500410172272
+      },
+      {
+        "priority": null,
+        "returnCustomer": "Tata Steel + CJ Darcl",
+        "lane": "Kalinganagar - Mumbai - Jaipur - Khimsar",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 3215,
+        "yieldPct": 74.2307931570762,
+        "blend": 71.0377756471716
+      },
+      {
+        "priority": null,
+        "returnCustomer": "Tata Steel",
+        "lane": "Kalinganagar - NCR - Gaziabad - Jaipur- Khimsar",
+        "monthlyLoad": 352,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2332,
+        "yieldPct": 70.0463121783877,
+        "blend": 68.1343490304709
+      }
+    ]
+  }
+]
