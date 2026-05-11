@@ -1,0 +1,6064 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Ready Reckoner — Lane Yield Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+/* Ready Reckoner — Lane Yield Tracker */
+
+:root {
+  --bg:           #F4F1E8;
+  --bg-warm:      #EDE8DA;
+  --surface:      #FFFFFF;
+  --surface-2:    #FAF7EE;
+  --surface-3:    #F1ECDD;
+  --border:       #E2DBC7;
+  --border-soft:  #EDE7D4;
+  --border-strong:#B6AC91;
+  --text:         #19140C;
+  --text-mid:     #4A4435;
+  --text-mut:     #7A715E;
+  --text-faint:   #A39A85;
+  --primary:      #1B3A55;
+  --primary-hover:#264D6E;
+  --primary-soft: #DEE6EE;
+  --accent:       #B85C36;
+  --accent-soft:  #F2DECE;
+  --success:      #2F6B43;
+  --success-soft: #D7E7DC;
+  --warn:         #9C7314;
+  --warn-soft:    #F2E5BF;
+  --danger:       #A8362C;
+  --danger-soft:  #F1D6D1;
+  --shadow-sm: 0 1px 0 rgba(25, 20, 12, 0.04), 0 1px 2px rgba(25, 20, 12, 0.05);
+  --shadow-md: 0 2px 4px rgba(25, 20, 12, 0.04), 0 6px 18px -8px rgba(25, 20, 12, 0.12);
+  --shadow-lg: 0 8px 24px -6px rgba(25, 20, 12, 0.16), 0 24px 56px -16px rgba(25, 20, 12, 0.22);
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: 'Geist', -apple-system, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-feature-settings: 'ss01' on, 'cv11' on;
+}
+
+.mono {
+  font-family: 'Geist Mono', ui-monospace, monospace;
+  font-feature-settings: 'tnum' on, 'ss01' on;
+}
+
+/* ── App shell ───────────────────────────────────── */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 14px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.brand-mark {
+  width: 32px;
+  height: 32px;
+  background: var(--primary);
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  font-weight: 600;
+  font-size: 13px;
+  letter-spacing: -0.02em;
+}
+.brand-mark .accent-dot {
+  width: 6px;
+  height: 6px;
+  background: var(--accent);
+  border-radius: 999px;
+  position: absolute;
+  transform: translate(8px, 8px);
+}
+.brand-name {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1;
+}
+.brand-sub {
+  font-size: 11px;
+  color: var(--text-mut);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-top: 3px;
+}
+
+.topbar-divider {
+  width: 1px;
+  height: 26px;
+  background: var(--border);
+}
+
+.topbar-tabs {
+  display: flex;
+  gap: 2px;
+  flex: 1;
+}
+.tab {
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-mut);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.tab:hover { background: var(--surface-3); color: var(--text); }
+.tab.active { background: var(--primary-soft); color: var(--primary); }
+.tab-count {
+  font-size: 11px;
+  background: rgba(0,0,0,0.05);
+  padding: 1px 6px;
+  border-radius: 999px;
+  font-family: 'Geist Mono', monospace;
+}
+.tab.active .tab-count { background: rgba(27, 58, 85, 0.12); }
+
+.user-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px 5px 5px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.user-pill:hover { background: var(--surface-3); }
+.user-avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+.user-name { font-weight: 500; }
+.user-role { color: var(--text-mut); }
+
+/* ── Buttons ─────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  font-family: inherit;
+  white-space: nowrap;
+  transition: background 80ms ease, border-color 80ms ease;
+}
+.btn:hover { background: var(--surface-3); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #fff;
+}
+.btn-primary:hover { background: var(--primary-hover); border-color: var(--primary-hover); }
+.btn-accent {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.btn-accent:hover { filter: brightness(1.05); }
+.btn-ghost { background: transparent; border-color: transparent; }
+.btn-ghost:hover { background: var(--surface-3); }
+.btn-danger {
+  background: #fff;
+  border-color: var(--danger-soft);
+  color: var(--danger);
+}
+.btn-danger:hover { background: var(--danger-soft); }
+.btn-sm { padding: 4px 9px; font-size: 12px; }
+.btn-xs { padding: 2px 7px; font-size: 11px; border-radius: 6px; }
+.btn-icon { padding: 6px; }
+
+/* ── Main content ────────────────────────────────── */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.actionbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 24px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border-soft);
+}
+.stat-group {
+  display: flex;
+  gap: 18px;
+  margin-right: auto;
+}
+.stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.stat-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-mut);
+  white-space: nowrap;
+}
+.stat-val {
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  font-family: 'Geist Mono', monospace;
+  font-feature-settings: 'tnum' on;
+  line-height: 1;
+  white-space: nowrap;
+}
+.stat-val .unit {
+  font-size: 11px;
+  color: var(--text-mut);
+  margin-left: 3px;
+  font-weight: 400;
+}
+
+.search-input {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 6px 12px;
+  width: 280px;
+}
+.search-input input {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 13px;
+  flex: 1;
+  color: var(--text);
+}
+.search-input svg { color: var(--text-mut); flex-shrink: 0; }
+
+/* ── Records table ───────────────────────────────── */
+.table-wrap {
+  flex: 1;
+  overflow: auto;
+  padding: 0 24px 64px;
+}
+
+.records-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 16px;
+  font-size: 13px;
+}
+
+.records-table thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  z-index: 5;
+  text-align: left;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-strong);
+  white-space: nowrap;
+}
+.records-table thead th.num { text-align: right; }
+.records-table thead .group-fwd { color: var(--primary); background: var(--bg); }
+.records-table thead .group-ret { color: var(--accent); background: var(--bg); }
+
+.fwd-row {
+  background: var(--surface);
+  cursor: pointer;
+}
+.fwd-row td {
+  padding: 14px 12px;
+  border-bottom: 1px solid var(--border-soft);
+  vertical-align: middle;
+}
+.fwd-row:hover { background: var(--surface-2); }
+.fwd-row.expanded { background: var(--surface-2); }
+.fwd-row.expanded td { border-bottom-color: var(--border); }
+
+.fwd-customer {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 220px;
+}
+.chevron {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: grid;
+  place-items: center;
+  color: var(--text-mut);
+  transition: transform 120ms ease;
+  flex-shrink: 0;
+}
+.fwd-row.expanded .chevron { transform: rotate(90deg); color: var(--primary); }
+.fwd-customer-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.fwd-customer-name {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.fwd-lane {
+  font-size: 12px;
+  color: var(--text-mut);
+}
+
+.num { text-align: right; font-family: 'Geist Mono', monospace; font-feature-settings: 'tnum' on; }
+.num-strong { font-weight: 500; }
+.range-cell { color: var(--text-mid); font-size: 12px; }
+
+.yield-chip {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-family: 'Geist Mono', monospace;
+  font-feature-settings: 'tnum' on;
+  font-weight: 500;
+}
+.yield-chip.high { background: var(--success-soft); color: var(--success); }
+.yield-chip.mid  { background: var(--warn-soft);    color: var(--warn); }
+.yield-chip.low  { background: var(--danger-soft);  color: var(--danger); }
+.yield-chip .pct { font-size: 10px; opacity: 0.7; }
+
+.priority-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.row-actions {
+  display: flex;
+  gap: 4px;
+  justify-content: flex-end;
+  opacity: 0;
+  transition: opacity 80ms ease;
+}
+.fwd-row:hover .row-actions,
+.fwd-row.expanded .row-actions { opacity: 1; }
+
+/* Return rows nested under expanded forward */
+.returns-wrap td {
+  padding: 0 !important;
+  background: var(--surface-3);
+  border-bottom: 1px solid var(--border-soft) !important;
+}
+.returns-inner {
+  padding: 12px 12px 16px 44px;
+}
+.returns-table {
+  width: 100%;
+  font-size: 12px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.returns-table th {
+  text-align: left;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-mut);
+  padding: 8px 10px;
+  background: var(--surface-2);
+  border-bottom: 1px solid var(--border-soft);
+}
+.returns-table th.num { text-align: right; }
+.returns-table td {
+  padding: 9px 10px;
+  border-bottom: 1px solid var(--border-soft);
+}
+.returns-table tr:last-child td { border-bottom: none; }
+
+.pri-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 24px;
+  height: 22px;
+  padding: 0 6px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 5px;
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'Geist Mono', monospace;
+  letter-spacing: 0;
+}
+.pri-badge.p1 { background: var(--accent); }
+.pri-badge.p2 { background: var(--primary); }
+.pri-badge.p3, .pri-badge.p4, .pri-badge.p5,
+.pri-badge.p6, .pri-badge.p7, .pri-badge.p8,
+.pri-badge.p9, .pri-badge.p10, .pri-badge.p11,
+.pri-badge.p12, .pri-badge.p13, .pri-badge.p14,
+.pri-badge.p15, .pri-badge.p16, .pri-badge.p17, .pri-badge.p18 {
+  background: var(--text-mut);
+}
+
+.meta-row {
+  display: flex;
+  gap: 14px;
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--text-mut);
+  padding-left: 6px;
+}
+.meta-row b { font-weight: 500; color: var(--text-mid); }
+
+.empty {
+  text-align: center;
+  padding: 80px 24px;
+  color: var(--text-mut);
+}
+.empty h3 { color: var(--text); margin: 8px 0 4px; font-weight: 500; }
+
+/* ── Drawer (form) ───────────────────────────────── */
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(25, 20, 12, 0.32);
+  z-index: 40;
+  animation: fadein 140ms ease;
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(960px, 96vw);
+  background: var(--bg);
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow-lg);
+  animation: slidein 180ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+@keyframes fadein  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slidein { from { transform: translateX(20px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  flex-shrink: 0;
+}
+.drawer-title-block { flex: 1; min-width: 0; }
+.drawer-eyebrow {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-mut);
+}
+.drawer-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+  line-height: 1.2;
+  margin-top: 2px;
+}
+
+.drawer-body {
+  flex: 1;
+  overflow: auto;
+  padding: 24px;
+}
+
+.drawer-footer {
+  padding: 14px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+.drawer-footer .footer-meta {
+  margin-right: auto;
+  font-size: 11px;
+  color: var(--text-mut);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 18px;
+}
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.section-marker {
+  width: 4px;
+  height: 18px;
+  border-radius: 2px;
+  background: var(--primary);
+}
+.section-marker.accent { background: var(--accent); }
+.section-title {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+}
+.section-sub {
+  font-size: 11px;
+  color: var(--text-mut);
+  margin-left: auto;
+}
+
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 12px;
+}
+.field { display: flex; flex-direction: column; gap: 5px; }
+.field.col-12 { grid-column: span 12; }
+.field.col-6 { grid-column: span 6; }
+.field.col-4 { grid-column: span 4; }
+.field.col-3 { grid-column: span 3; }
+.field.col-2 { grid-column: span 2; }
+
+.field label {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-mut);
+}
+.field label .req { color: var(--accent); }
+.field label .hint { color: var(--text-faint); text-transform: none; letter-spacing: 0; font-weight: 400; margin-left: 4px; }
+
+.field input,
+.field select,
+.field textarea {
+  font-family: inherit;
+  font-size: 13px;
+  padding: 8px 10px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  color: var(--text);
+  outline: none;
+  transition: border-color 80ms ease, box-shadow 80ms ease;
+}
+.field input.num { text-align: right; font-family: 'Geist Mono', monospace; }
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--primary-soft);
+}
+.field.derived input {
+  background: var(--surface-2);
+  color: var(--text-mid);
+  border-style: dashed;
+}
+
+.field-suffix {
+  position: relative;
+}
+.field-suffix .suffix {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  color: var(--text-faint);
+  pointer-events: none;
+  font-family: 'Geist Mono', monospace;
+}
+.field-suffix input { padding-right: 36px; }
+
+/* Returns editor */
+.returns-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.return-card {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+}
+.return-card-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.return-card-head .drag {
+  cursor: grab;
+  color: var(--text-faint);
+  padding: 2px;
+}
+.return-card-head .pri-badge { margin-right: 4px; }
+.return-card-head input {
+  flex: 1;
+  font-size: 13px;
+  padding: 6px 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: inherit;
+  outline: none;
+}
+.return-card-head input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
+
+.add-priority {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 10px;
+  background: transparent;
+  border: 1px dashed var(--border-strong);
+  border-radius: 10px;
+  color: var(--text-mut);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: inherit;
+}
+.add-priority:hover { background: var(--surface-2); color: var(--primary); border-color: var(--primary); }
+
+/* ── Import view ─────────────────────────────────── */
+.import-pane {
+  flex: 1;
+  padding: 32px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 980px;
+}
+
+.import-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+}
+.import-card-head {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.import-card-head h3 {
+  margin: 0 0 4px;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.import-card-head p {
+  margin: 0;
+  font-size: 12px;
+  color: var(--text-mut);
+}
+.import-card-body { padding: 22px; }
+
+.dropzone {
+  border: 1.5px dashed var(--border-strong);
+  border-radius: 10px;
+  padding: 32px 24px;
+  text-align: center;
+  background: var(--surface-2);
+  cursor: pointer;
+  transition: background 80ms ease, border-color 80ms ease;
+}
+.dropzone:hover, .dropzone.dragging {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+}
+.dropzone svg { color: var(--text-mut); }
+.dropzone h4 { margin: 12px 0 4px; font-size: 14px; font-weight: 500; }
+.dropzone p { margin: 0; font-size: 12px; color: var(--text-mut); }
+
+.schema-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px 28px;
+  margin-top: 8px;
+}
+.schema-col h5 {
+  margin: 0 0 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.schema-col h5.fwd { color: var(--primary); }
+.schema-col h5.ret { color: var(--accent); }
+.schema-list { list-style: none; padding: 0; margin: 0; font-size: 12px; }
+.schema-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text-mid);
+}
+.schema-list li:last-child { border-bottom: none; }
+.schema-list .col-letter {
+  font-family: 'Geist Mono', monospace;
+  color: var(--text-faint);
+  font-size: 11px;
+}
+
+.import-preview {
+  margin-top: 22px;
+  border-top: 1px solid var(--border);
+  padding-top: 18px;
+}
+.import-preview h4 {
+  margin: 0 0 12px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.import-summary {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.import-summary .stat {
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 14px;
+  flex: 1;
+}
+
+/* ── Toast ──────────────────────────────────────── */
+.toast-stack {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.toast {
+  background: var(--text);
+  color: #fff;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: var(--shadow-md);
+  min-width: 240px;
+  animation: toastin 160ms ease;
+}
+.toast.success { background: var(--success); }
+.toast.error   { background: var(--danger); }
+@keyframes toastin {
+  from { transform: translateY(8px); opacity: 0; }
+  to { transform: none; opacity: 1; }
+}
+
+/* ── Login modal ────────────────────────────────── */
+.login-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(25, 20, 12, 0.5);
+  z-index: 200;
+  display: grid;
+  place-items: center;
+}
+.login-card {
+  background: var(--surface);
+  border-radius: 16px;
+  padding: 28px;
+  width: 380px;
+  box-shadow: var(--shadow-lg);
+}
+.login-card h2 {
+  margin: 16px 0 4px;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.login-card p {
+  margin: 0 0 18px;
+  color: var(--text-mut);
+  font-size: 13px;
+}
+.login-card .field { margin-bottom: 12px; }
+.user-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+.user-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  background: var(--surface);
+}
+.user-option:hover { background: var(--surface-2); }
+.user-option.selected { border-color: var(--primary); background: var(--primary-soft); }
+.user-option .user-avatar { width: 30px; height: 30px; font-size: 11px; }
+.user-option-meta { display: flex; flex-direction: column; min-width: 0; flex: 1 1 auto; }
+.user-option-name { font-weight: 500; font-size: 13px; white-space: nowrap; }
+.user-option-role { font-size: 11px; color: var(--text-mut); white-space: nowrap; }
+
+/* ── Util ───────────────────────────────────────── */
+.spacer { flex: 1; }
+.divider { height: 1px; background: var(--border); margin: 18px 0; }
+.kbd {
+  font-family: 'Geist Mono', monospace;
+  font-size: 10px;
+  background: var(--surface-3);
+  padding: 1px 5px;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 999px; border: 2px solid var(--bg); }
+::-webkit-scrollbar-thumb:hover { background: var(--text-faint); }
+
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <script>
+// Excel import/export using SheetJS (window.XLSX)
+// Schema mirrors Ready_Reckoner.xlsx exactly.
+
+(function () {
+  const FWD_COLS = [
+    { key: 'customer',     label: 'Customer' },
+    { key: 'lane',         label: 'Lane' },
+    { key: 'febLoad',      label: 'Feb Load' },
+    { key: 'distanceKms',  label: 'Distance-KMS (Actuals)' },
+    { key: 'yieldPct',     label: 'Yield' },
+    { key: 'minKms',       label: 'Min-KMS' },
+    { key: 'maxKms',       label: 'Max-KMS' },
+  ];
+  const RET_COLS = [
+    { key: 'priority',        label: 'Priority' },
+    { key: 'returnCustomer',  label: 'Return Customer' },
+    { key: 'lane',            label: 'Lane' },
+    { key: 'monthlyLoad',     label: 'Monthly Load - MT' },
+    { key: 'distanceLoaded',  label: 'Distance Loaded - KMS' },
+    { key: 'distanceEmpty',   label: 'Distance Empty' },
+    { key: 'totalDistance',   label: 'Total Distance KMS' },
+    { key: 'yieldPct',        label: 'Yield' },
+    { key: 'blend',           label: 'Blend' },
+  ];
+
+  function nz(v) { return v === undefined || v === null || v === '' ? null : v; }
+
+  // Parse from a workbook (already loaded via XLSX.read)
+  function parseWorkbook(wb) {
+    const sheet = wb.Sheets[wb.SheetNames[0]];
+    // Get array-of-arrays
+    const aoa = window.XLSX.utils.sheet_to_json(sheet, { header: 1, defval: '' });
+    // aoa[0] is the "Forward Lane | Return Lane" superheader; aoa[1] is the column header row.
+    // Data starts at aoa[2]
+    const records = [];
+    let current = null;
+    for (let i = 2; i < aoa.length; i++) {
+      const row = aoa[i];
+      if (!row || row.length === 0) continue;
+      const [A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P] = row;
+      const hasFwd = String(A ?? '').trim() !== '';
+      if (hasFwd) {
+        if (current) records.push(current);
+        current = {
+          forward: {
+            customer: String(A).trim(),
+            lane: String(B ?? '').trim(),
+            febLoad: nz(C),
+            distanceKms: nz(D),
+            yieldPct: nz(E),
+            minKms: nz(F),
+            maxKms: nz(G),
+          },
+          returns: []
+        };
+      }
+      if (!current) continue;
+      const hasRet = (String(I ?? '').trim() !== '') || (String(J ?? '').trim() !== '') || (String(H ?? '').trim() !== '');
+      if (hasRet) {
+        current.returns.push({
+          priority: String(H ?? '').trim() || null,
+          returnCustomer: String(I ?? '').trim() || null,
+          lane: String(J ?? '').trim() || null,
+          monthlyLoad: nz(K),
+          distanceLoaded: nz(L),
+          distanceEmpty: nz(M),
+          totalDistance: nz(N),
+          yieldPct: nz(O),
+          blend: nz(P),
+        });
+      }
+    }
+    if (current) records.push(current);
+    return records;
+  }
+
+  async function parseFile(file) {
+    const buf = await file.arrayBuffer();
+    const wb = window.XLSX.read(buf, { type: 'array' });
+    return parseWorkbook(wb);
+  }
+
+  // Build a worksheet AOA matching the original layout
+  function recordsToAOA(records) {
+    const aoa = [];
+    aoa.push(['Forward Lane (Customer Origin)', '', '', '', '', '', '', 'Return Lane (Backhaul)', '', '', '', '', '', '', '', '']);
+    aoa.push([
+      ...FWD_COLS.map(c => c.label),
+      ...RET_COLS.map(c => c.label),
+    ]);
+    for (const rec of records) {
+      const fwd = rec.forward || {};
+      const rets = rec.returns && rec.returns.length ? rec.returns : [{}];
+      rets.forEach((ret, idx) => {
+        const row = idx === 0
+          ? FWD_COLS.map(c => fwd[c.key] ?? '')
+          : FWD_COLS.map(() => '');
+        for (const c of RET_COLS) row.push(ret[c.key] ?? '');
+        aoa.push(row);
+      });
+    }
+    return aoa;
+  }
+
+  function exportRecords(records, filename) {
+    const aoa = recordsToAOA(records);
+    const ws = window.XLSX.utils.aoa_to_sheet(aoa);
+    // Column widths roughly matching original
+    ws['!cols'] = [
+      { wch: 28 }, { wch: 36 }, { wch: 12 }, { wch: 12 }, { wch: 12 }, { wch: 11 }, { wch: 11 },
+      { wch: 9 },  { wch: 28 }, { wch: 42 }, { wch: 13 }, { wch: 13 }, { wch: 13 }, { wch: 13 },
+      { wch: 12 }, { wch: 12 }
+    ];
+    const wb = window.XLSX.utils.book_new();
+    window.XLSX.utils.book_append_sheet(wb, ws, 'Ready Reckoner');
+    window.XLSX.writeFile(wb, filename || 'Ready_Reckoner_Export.xlsx');
+  }
+
+  window.ExcelIO = { parseFile, parseWorkbook, exportRecords, FWD_COLS, RET_COLS };
+})();
+
+  </script>
+
+  <script>
+window.__SEED_DATA__ = [
+  {
+    "forward": {
+      "customer": "Silox India",
+      "lane": "Chanderiya - Silvassa",
+      "febLoad": 782,
+      "distanceKms": 774,
+      "yieldPct": 76.9418604651163,
+      "minKms": 800,
+      "maxKms": 1100
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Apar + Chauhan",
+        "lane": "Silvassa - Khavda - Mundra - Chittorgarh",
+        "monthlyLoad": 117,
+        "distanceLoaded": 1500,
+        "distanceEmpty": 150,
+        "totalDistance": 1650,
+        "yieldPct": 78.3030303030303,
+        "blend": 77.868399339934
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "VBL(seasonal)",
+        "lane": "Silvassa - Surat - Kota - Chittorgarh",
+        "monthlyLoad": 600,
+        "distanceLoaded": 718,
+        "distanceEmpty": 303,
+        "totalDistance": 1021,
+        "yieldPct": 76.3956904995103,
+        "blend": 76.6311977715878
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Apar + Chauhan",
+        "lane": "Silvassa - Kachhch - Mundra - Chittorgarh",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1450,
+        "distanceEmpty": 100,
+        "totalDistance": 1550,
+        "yieldPct": 69.5032258064516,
+        "blend": 71.9806368330465
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Evonith Steel",
+      "lane": "Debari - Wardha",
+      "febLoad": 559,
+      "distanceKms": 1081,
+      "yieldPct": 77.5670675300648,
+      "minKms": 500,
+      "maxKms": 600
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel",
+        "lane": "Nagpur - Mumbai",
+        "monthlyLoad": 600,
+        "distanceLoaded": 880,
+        "distanceEmpty": 100,
+        "totalDistance": 980,
+        "yieldPct": 83.5224489795918,
+        "blend": 78.2715447154471
+      },
+      {
+        "priority": null,
+        "returnCustomer": "JSW Steel + Chauhan",
+        "lane": "Dolvi - Anjar- Mundra -Chittorgarh",
+        "monthlyLoad": null,
+        "distanceLoaded": 1499,
+        "distanceEmpty": 130,
+        "totalDistance": 1629,
+        "yieldPct": 75.5801104972376,
+        "blend": null
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "AMNS",
+      "lane": "Chanderiya - Sanaswadi",
+      "febLoad": 155,
+      "distanceKms": 930,
+      "yieldPct": 87.9387096774194,
+      "minKms": 80,
+      "maxKms": 160
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1866,
+        "distanceEmpty": 470,
+        "totalDistance": 2336,
+        "yieldPct": 72.8253424657534,
+        "blend": 77.1289038579302
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Tata Steel",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 420,
+        "totalDistance": 1660,
+        "yieldPct": 60.5060240963855,
+        "blend": 70.3563706563707
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 155,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 540,
+        "totalDistance": 2380,
+        "yieldPct": 61.6806722689076,
+        "blend": 69.0583081570997
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 545,
+        "totalDistance": 2365,
+        "yieldPct": 61.3953488372093,
+        "blend": 68.8871016691958
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1900,
+        "distanceEmpty": 420,
+        "totalDistance": 2320,
+        "yieldPct": 59.7284482758621,
+        "blend": 67.8009230769231
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 420,
+        "totalDistance": 1660,
+        "yieldPct": 56.3385542168675,
+        "blend": 67.6853281853282
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 460,
+        "totalDistance": 2380,
+        "yieldPct": 58.8949579831933,
+        "blend": 67.0552870090634
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 500,
+        "totalDistance": 2320,
+        "yieldPct": 58.5344827586207,
+        "blend": 66.9486153846154
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 540,
+        "totalDistance": 2340,
+        "yieldPct": 57.3504273504274,
+        "blend": 66.0498470948012
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Hindustan Zinc",
+      "lane": "Chanderiya - Pune/Wadu Khurd",
+      "febLoad": 388,
+      "distanceKms": 949,
+      "yieldPct": 86.4612961011591,
+      "minKms": 700,
+      "maxKms": 900
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 388,
+        "distanceLoaded": 1866,
+        "distanceEmpty": 446,
+        "totalDistance": 2312,
+        "yieldPct": 73.5813148788927,
+        "blend": 77.3295829500153
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 523,
+        "totalDistance": 2363,
+        "yieldPct": 62.1244181125688,
+        "blend": 69.0977566425121
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 528,
+        "totalDistance": 2348,
+        "yieldPct": 61.839863713799,
+        "blend": 68.9268334849864
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1900,
+        "distanceEmpty": 400,
+        "totalDistance": 2300,
+        "yieldPct": 60.2478260869565,
+        "blend": 67.9045152354571
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 440,
+        "totalDistance": 2360,
+        "yieldPct": 59.3940677966102,
+        "blend": 67.1567754608643
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 400,
+        "totalDistance": 1640,
+        "yieldPct": 57.0256097560976,
+        "blend": 67.8152838933951
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 490,
+        "totalDistance": 2310,
+        "yieldPct": 58.7878787878788,
+        "blend": 66.8462012887389
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 530,
+        "totalDistance": 2330,
+        "yieldPct": 57.5965665236051,
+        "blend": 65.9505245501677
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Hindustan Zinc",
+      "lane": "Chanderiya - Ahmednagar",
+      "febLoad": 40,
+      "distanceKms": 915,
+      "yieldPct": 87.0544699453552,
+      "minKms": 1080,
+      "maxKms": 1080
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "MP Rajasthan(SPOT)",
+        "lane": "Ahmednagar - Bhilwara - Chanderiya",
+        "monthlyLoad": 40,
+        "distanceLoaded": 845,
+        "distanceEmpty": 205,
+        "totalDistance": 1050,
+        "yieldPct": 65.1428571428571,
+        "blend": 76.6602086438152
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1866,
+        "distanceEmpty": 566,
+        "totalDistance": 2432,
+        "yieldPct": 69.9506578947368,
+        "blend": 74.6264834179863
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 643,
+        "totalDistance": 2483,
+        "yieldPct": 59.1220298026581,
+        "blend": 66.6435668040023
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 648,
+        "totalDistance": 2468,
+        "yieldPct": 58.8330632090762,
+        "blend": 66.4661070056163
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1900,
+        "distanceEmpty": 520,
+        "totalDistance": 2420,
+        "yieldPct": 57.2603305785124,
+        "blend": 65.4347346326837
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 520,
+        "totalDistance": 1760,
+        "yieldPct": 53.1375,
+        "blend": 64.7390056074766
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 610,
+        "totalDistance": 2430,
+        "yieldPct": 55.8847736625514,
+        "blend": 64.4110134529148
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 560,
+        "totalDistance": 2480,
+        "yieldPct": 56.5201612903226,
+        "blend": 64.7495846833579
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 650,
+        "totalDistance": 2450,
+        "yieldPct": 54.7755102040816,
+        "blend": 63.5527013372957
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Silox India",
+      "lane": "Debari - Silvassa",
+      "febLoad": 513,
+      "distanceKms": 674,
+      "yieldPct": 80.4540059347181,
+      "minKms": 500,
+      "maxKms": 700
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Apar + Chauhan",
+        "lane": "Silvassa - Khavda - Mundra - Chittorgarh",
+        "monthlyLoad": 250,
+        "distanceLoaded": 1500,
+        "distanceEmpty": 250,
+        "totalDistance": 1750,
+        "yieldPct": 73.8285714285714,
+        "blend": 75.6707920792079
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Apar + Chauhan",
+        "lane": "Silvassa - Kachhch - Mundra - Chittorgarh",
+        "monthlyLoad": 250,
+        "distanceLoaded": 1450,
+        "distanceEmpty": 200,
+        "totalDistance": 1650,
+        "yieldPct": 65.2909090909091,
+        "blend": 69.6884681583477
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bajel Projects Limited",
+      "lane": "Chanderiya - Pune",
+      "febLoad": 0,
+      "distanceKms": 1030,
+      "yieldPct": 76.7883495145631,
+      "minKms": 150,
+      "maxKms": 150
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1866,
+        "distanceEmpty": 446,
+        "totalDistance": 2312,
+        "yieldPct": 73.5813148788927,
+        "blend": 74.5697187312986
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 523,
+        "totalDistance": 2363,
+        "yieldPct": 62.1244181125688,
+        "blend": 66.5758915414088
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 528,
+        "totalDistance": 2348,
+        "yieldPct": 61.839863713799,
+        "blend": 66.3978685612789
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1900,
+        "distanceEmpty": 400,
+        "totalDistance": 2300,
+        "yieldPct": 60.2478260869565,
+        "blend": 65.363963963964
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 400,
+        "totalDistance": 1640,
+        "yieldPct": 57.0256097560976,
+        "blend": 64.6494382022472
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 490,
+        "totalDistance": 2310,
+        "yieldPct": 58.7878787878788,
+        "blend": 64.3389221556886
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 530,
+        "totalDistance": 2330,
+        "yieldPct": 57.5965665236051,
+        "blend": 63.4797619047619
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl",
+        "lane": "Vasind - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1160,
+        "distanceEmpty": 490,
+        "totalDistance": 1650,
+        "yieldPct": 50.6666666666667,
+        "blend": 60.7059701492537
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 440,
+        "totalDistance": 2360,
+        "yieldPct": 59.3940677966102,
+        "blend": 64.6790560471976
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "AMNS",
+      "lane": "Chanderiya - Khopoli",
+      "febLoad": 627,
+      "distanceKms": 950,
+      "yieldPct": 76.5221052631579,
+      "minKms": 1000,
+      "maxKms": 1250
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1881,
+        "distanceEmpty": 470,
+        "totalDistance": 2351,
+        "yieldPct": 72.3606975754998,
+        "blend": 73.5583156619206
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 300,
+        "totalDistance": 1540,
+        "yieldPct": 65.2207792207792,
+        "blend": 69.5325301204819
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 40,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 440,
+        "totalDistance": 2280,
+        "yieldPct": 64.3859649122807,
+        "blend": 67.9554179566563
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 587,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 445,
+        "totalDistance": 2265,
+        "yieldPct": 64.1059602649007,
+        "blend": 67.7748055987558
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad- Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 300,
+        "totalDistance": 2220,
+        "yieldPct": 63.1396396396396,
+        "blend": 67.1501577287066
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 300,
+        "totalDistance": 1540,
+        "yieldPct": 60.7285714285714,
+        "blend": 66.7542168674699
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 340,
+        "totalDistance": 2260,
+        "yieldPct": 62.0221238938053,
+        "blend": 66.3133956386293
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 410,
+        "totalDistance": 2230,
+        "yieldPct": 60.8968609865471,
+        "blend": 65.5647798742138
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 450,
+        "totalDistance": 2250,
+        "yieldPct": 59.6444444444444,
+        "blend": 64.655
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Hindustan Zinc",
+      "lane": "Dariba - Ahmednagar",
+      "febLoad": 236,
+      "distanceKms": 963,
+      "yieldPct": 89.2180685358256,
+      "minKms": 1080,
+      "maxKms": 1080
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "MP Rajasthan(SPOT)",
+        "lane": "Ahmednagar - Bhilwara - Dariba",
+        "monthlyLoad": 300,
+        "distanceLoaded": 852,
+        "distanceEmpty": 248,
+        "totalDistance": 1100,
+        "yieldPct": 62.1818181818182,
+        "blend": 74.8022297624818
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1866,
+        "distanceEmpty": 596,
+        "totalDistance": 2462,
+        "yieldPct": 69.0982940698619,
+        "blend": 74.7553284671533
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 673,
+        "totalDistance": 2513,
+        "yieldPct": 58.4162355750099,
+        "blend": 66.9496547756041
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 678,
+        "totalDistance": 2498,
+        "yieldPct": 58.1265012009608,
+        "blend": 66.777520947703
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1900,
+        "distanceEmpty": 550,
+        "totalDistance": 2450,
+        "yieldPct": 56.5591836734694,
+        "blend": 65.7740990331087
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 590,
+        "totalDistance": 2510,
+        "yieldPct": 55.8446215139442,
+        "blend": 65.098473941837
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 550,
+        "totalDistance": 1790,
+        "yieldPct": 52.2469273743017,
+        "blend": 65.1794406102434
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 640,
+        "totalDistance": 2460,
+        "yieldPct": 55.2032520325203,
+        "blend": 64.7727139935729
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 680,
+        "totalDistance": 2480,
+        "yieldPct": 54.1129032258064,
+        "blend": 63.9317455707232
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Hindustan Zinc",
+      "lane": "Chanderiya - JNPT Mumbai/Thane",
+      "febLoad": 427,
+      "distanceKms": 942,
+      "yieldPct": 70.8768577494692,
+      "minKms": 1080,
+      "maxKms": 1080
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Cement + TSL",
+        "lane": "Dolvi - Noida - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1881,
+        "distanceEmpty": 470,
+        "totalDistance": 2351,
+        "yieldPct": 72.3606975754998,
+        "blend": 71.9362283631947
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Mukand + TSL",
+        "lane": "Kalwa - Bahadurgarh - Gaziabad -Jaipur",
+        "monthlyLoad": 64,
+        "distanceLoaded": 1840,
+        "distanceEmpty": 410,
+        "totalDistance": 2250,
+        "yieldPct": 65.2444444444444,
+        "blend": 66.90664160401
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Mukand + Bhadana Trans",
+        "lane": "Kalwa - Bahadurgarh - Faridabad-Jaipur",
+        "monthlyLoad": 363,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 415,
+        "totalDistance": 2235,
+        "yieldPct": 64.9664429530201,
+        "blend": 66.7189172175008
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS + Bhadana Trans",
+        "lane": "Khopoli - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 350,
+        "totalDistance": 2270,
+        "yieldPct": 64.568281938326,
+        "blend": 66.4184308841843
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "CJ Darcl + TSL",
+        "lane": "Vasind - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1820,
+        "distanceEmpty": 390,
+        "totalDistance": 2210,
+        "yieldPct": 61.447963800905,
+        "blend": 64.2658629441624
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS + TSL",
+        "lane": "Khopoli - Faridabad - Gaziabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1920,
+        "distanceEmpty": 390,
+        "totalDistance": 2310,
+        "yieldPct": 60.6796536796537,
+        "blend": 63.6334563345633
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1240,
+        "distanceEmpty": 350,
+        "totalDistance": 1590,
+        "yieldPct": 58.8188679245283,
+        "blend": 63.304897314376
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "CJ Darcl + Bhadana Trans",
+        "lane": "Vasind - Gaziabad - Faridabad - Jaipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": 1800,
+        "distanceEmpty": 430,
+        "totalDistance": 2230,
+        "yieldPct": 60.1793721973094,
+        "blend": 63.3562421185372
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "AMNS",
+      "lane": "Hazira - Mumbai",
+      "febLoad": 210,
+      "distanceKms": 410,
+      "yieldPct": 122.926829268293,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 390,
+        "yieldPct": 116.2,
+        "blend": 119.6475
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Valsad - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 376,
+        "yieldPct": 108.494680851064,
+        "blend": 116.022900763359
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Surat - Hazira",
+        "monthlyLoad": 76.74,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 395,
+        "yieldPct": 99.820253164557,
+        "blend": 111.588819875776
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "TSL ",
+        "lane": "Khopoli - Silvassa",
+        "monthlyLoad": 62,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 409,
+        "yieldPct": 87.2860635696822,
+        "blend": 105.128205128205
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli- surat",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 389,
+        "yieldPct": 92.2622107969152,
+        "blend": 107.997496871089
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Vapi - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 380,
+        "yieldPct": 90.2131578947368,
+        "blend": 107.191139240506
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Silvassa - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 390,
+        "yieldPct": 85.6461538461539,
+        "blend": 104.7525
+      },
+      {
+        "priority": null,
+        "returnCustomer": "JSW Steel Dolvi(TMT)",
+        "lane": "Vasind - Surat - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 395,
+        "yieldPct": 84.5620253164557,
+        "blend": 104.101863354037
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Jambusar - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 605,
+        "yieldPct": 89.9256198347107,
+        "blend": 103.256157635468
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli Valsad",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 357,
+        "yieldPct": 80.8963585434174,
+        "blend": 103.363754889179
+      },
+      {
+        "priority": "P10",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Bharuch - Hazira",
+        "monthlyLoad": 34.5,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 495,
+        "yieldPct": 75.6363636363636,
+        "blend": 97.060773480663
+      },
+      {
+        "priority": "P11",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Baroda",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 726,
+        "yieldPct": 66.4462809917355,
+        "blend": 86.830985915493
+      },
+      {
+        "priority": "P12",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Bharuch",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 695,
+        "yieldPct": 65.4820143884892,
+        "blend": 86.7963800904977
+      },
+      {
+        "priority": "P13",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Baroda - Hazira",
+        "monthlyLoad": 37.425,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 644,
+        "yieldPct": 59.8567546583851,
+        "blend": 84.3906546489564
+      },
+      {
+        "priority": "P14",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Vadodara",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 740,
+        "yieldPct": 58.027027027027,
+        "blend": 81.1652173913044
+      },
+      {
+        "priority": "P15",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Ahmedabad",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 943,
+        "yieldPct": 54.0466595970308,
+        "blend": 74.9194382852919
+      },
+      {
+        "priority": "P16",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Ahmedabad",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 931,
+        "yieldPct": 47.1235230934479,
+        "blend": 70.2997762863535
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "AMNS",
+      "lane": "Hazira - Pune",
+      "febLoad": 1095,
+      "distanceKms": 520,
+      "yieldPct": 124.038461538462,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 520,
+        "yieldPct": 87.15,
+        "blend": 105.594230769231
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Valsad - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 506,
+        "yieldPct": 80.6205533596838,
+        "blend": 102.625730994152
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "AMNS ",
+        "lane": "Pune - Surat",
+        "monthlyLoad": 573,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 540,
+        "yieldPct": 84.2572222222222,
+        "blend": 103.772547169811
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli- surat/valsad",
+        "monthlyLoad": 108,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 479,
+        "yieldPct": 73.4486430062631,
+        "blend": 99.7816816816817
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Surat - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 525,
+        "yieldPct": 75.1028571428571,
+        "blend": 99.4535885167464
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "TSL ",
+        "lane": "Khopoli - Silvassa",
+        "monthlyLoad": 135,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 499,
+        "yieldPct": 71.5430861723447,
+        "blend": 98.3316977428852
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Vapi - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 510,
+        "yieldPct": 67.2176470588235,
+        "blend": 95.9038834951456
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Jambusar - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 735,
+        "yieldPct": 74.0204081632653,
+        "blend": 94.7450199203187
+      },
+      {
+        "priority": "P10",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Silvassa - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 520,
+        "yieldPct": 64.2346153846154,
+        "blend": 94.1365384615385
+      },
+      {
+        "priority": "P11",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Bharuch - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 625,
+        "yieldPct": 59.904,
+        "blend": 89.0305676855895
+      },
+      {
+        "priority": "P12",
+        "returnCustomer": "AMNS ",
+        "lane": "Pune - Ahmedabad - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 974,
+        "yieldPct": 65.9342915811088,
+        "blend": 86.1579651941098
+      },
+      {
+        "priority": "P14",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Bharuch",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 785,
+        "yieldPct": 57.9745222929936,
+        "blend": 84.2988505747126
+      },
+      {
+        "priority": "P13",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Baroda",
+        "monthlyLoad": 165,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 816,
+        "yieldPct": 55.8333333333333,
+        "blend": 82.3802395209581
+      },
+      {
+        "priority": "P15",
+        "returnCustomer": "JSW Vasind",
+        "lane": "Vasind - Baroda - Hazira",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 774,
+        "yieldPct": 51.8992248062016,
+        "blend": 80.8887171561051
+      },
+      {
+        "priority": "P16",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Vadodara",
+        "monthlyLoad": 143,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 830,
+        "yieldPct": 51.7349397590361,
+        "blend": 79.5851851851852
+      },
+      {
+        "priority": "P17",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Ahmedabad",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1033,
+        "yieldPct": 49.3378509196515,
+        "blend": 74.3502897617515
+      },
+      {
+        "priority": "P18",
+        "returnCustomer": "AMNS ",
+        "lane": "Khopoli - Ahmedabad",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1021,
+        "yieldPct": 42.9696376101861,
+        "blend": 70.3257624918884
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "AMNS",
+      "lane": "Hazira - Jaipur",
+      "febLoad": 1742,
+      "distanceKms": 980,
+      "yieldPct": 80.2623979591837,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Gravita + Rushab(S)",
+        "lane": "Jaipur - Pune  - Surat - Hazira",
+        "monthlyLoad": 300,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1770,
+        "yieldPct": 77.683615819209,
+        "blend": 78.6026
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Gravita + Rushab(S)",
+        "lane": "Jaipur - Pune - Khopoli - Hazira",
+        "monthlyLoad": 300,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1780,
+        "yieldPct": 74.0640449438202,
+        "blend": 76.2649094202899
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Silox",
+        "lane": "Chanderiya - Silvassa - Hazira",
+        "monthlyLoad": 1000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1230,
+        "yieldPct": 48.4170731707317,
+        "blend": 62.5385294117647
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Agrawal Metals",
+      "lane": "Ahmedabad - Bhiwadi",
+      "febLoad": 0,
+      "distanceKms": 875,
+      "yieldPct": 114.285714285714,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL ",
+        "lane": "Sahibabad - Ahmedabad",
+        "monthlyLoad": 500,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1100,
+        "yieldPct": 63.9090909090909,
+        "blend": 86.2278481012658
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "KRBL(Spot)",
+        "lane": "Gaziabad - Ahmedabad ",
+        "monthlyLoad": 500,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1100,
+        "yieldPct": 51.8181818181818,
+        "blend": 79.4936708860759
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JK Lakshmi - Sirohi",
+      "lane": "Sirohi - Dastan ",
+      "febLoad": 3808,
+      "distanceKms": 551,
+      "yieldPct": 66.5698729582577,
+      "minKms": 4800,
+      "maxKms": 5500
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": " AMNS + JKLC",
+        "lane": "Hazira - Gandhinagar - Sirohi",
+        "monthlyLoad": 1779,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 590,
+        "yieldPct": 92.5508474576271,
+        "blend": 80.0043821209465
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": " AMNS + JKLC",
+        "lane": "Hazira - Anjar - Udaipur",
+        "monthlyLoad": 190,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1340,
+        "yieldPct": 72,
+        "blend": 70.4177683765204
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Taloja/Navi Mumbai",
+      "febLoad": 2676,
+      "distanceKms": 880,
+      "yieldPct": 83.8254545454545,
+      "minKms": 700,
+      "maxKms": 1000
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL and APAR",
+        "lane": "Mumbai - Khopoli - Silvassa - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1151,
+        "yieldPct": 98.0538662033015,
+        "blend": 91.8889217134416
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "AMNS + Raipur Orissa Roadline",
+        "lane": "Mumbai - Bhopal - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1251,
+        "yieldPct": 97.726618705036,
+        "blend": 91.9861098076021
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Bhopal - Nagpur",
+        "monthlyLoad": 319,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1261,
+        "yieldPct": 91.5083267248216,
+        "blend": 88.350490425035
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS + MP Rajasthan Transport",
+        "lane": "Mumbai - Bhopal - Harda - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1351,
+        "yieldPct": 86.1361954108068,
+        "blend": 85.2247422680412
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "Vansh + MP Rajasthan Transport",
+        "lane": "Mumbai - Bhopal - Harda - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1351,
+        "yieldPct": 81.0555144337528,
+        "blend": 82.1480950246526
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "JSW Tarapur + VBL",
+        "lane": "Mumbai - Bangalore - Chennai - Renugunta - Nagpur",
+        "monthlyLoad": 1320,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2534,
+        "yieldPct": 81.5635359116022,
+        "blend": 82.1465729349736
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Narsinghgarh- Bhopal - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1700,
+        "yieldPct": 80.7529411764706,
+        "blend": 81.8009302325581
+      },
+      {
+        "priority": "P8",
+        "returnCustomer": "Shiv Priya(Spot)",
+        "lane": "Mumbai - Nagpur",
+        "monthlyLoad": 237,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 846,
+        "yieldPct": 78.7375886524823,
+        "blend": 81.3316338354577
+      },
+      {
+        "priority": "P9",
+        "returnCustomer": "Shree Lakshmi(Spot)",
+        "lane": "Mumbai - Nagpur",
+        "monthlyLoad": 777,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 831,
+        "yieldPct": 75.1576413959085,
+        "blend": 79.6156633547633
+      },
+      {
+        "priority": "P10",
+        "returnCustomer": "Apar",
+        "lane": "Mumbai - Silvassa - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 980,
+        "yieldPct": 75.6122448979592,
+        "blend": 79.498064516129
+      },
+      {
+        "priority": "P11",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 864,
+        "yieldPct": 73.4490740740741,
+        "blend": 78.6848623853211
+      },
+      {
+        "priority": "P12",
+        "returnCustomer": "Mukand + JSW",
+        "lane": "Mumbai - Hospete - Bellary - Nagpur",
+        "monthlyLoad": 200,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2000,
+        "yieldPct": 75.8575,
+        "blend": 78.2921527777778
+      },
+      {
+        "priority": "P13",
+        "returnCustomer": "Nandan Petrochemical",
+        "lane": "JNPT - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 835,
+        "yieldPct": 72.3952095808383,
+        "blend": 78.2602915451895
+      },
+      {
+        "priority": "P14",
+        "returnCustomer": "Apar",
+        "lane": "Mumbai - Silvassa - Wardha - Nagpur",
+        "monthlyLoad": 250,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1000,
+        "yieldPct": 70.11,
+        "blend": 76.53
+      },
+      {
+        "priority": "P15",
+        "returnCustomer": "Vansh Logistics",
+        "lane": "Navi Mumbai - Nagpur",
+        "monthlyLoad": 2171,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 900,
+        "yieldPct": 66.8330666666667,
+        "blend": 75.233797752809
+      },
+      {
+        "priority": "P16",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Katni - Bhopal -  Nagpur",
+        "monthlyLoad": 142,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2036,
+        "yieldPct": 65.3909626719057,
+        "blend": 70.9541838134431
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Pune",
+      "febLoad": 973,
+      "distanceKms": 800,
+      "yieldPct": 92.1,
+      "minKms": 500,
+      "maxKms": 1000
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel + Apar",
+        "lane": "Pune - Khopoli - Silvassa - Aurangabad - Nagpur",
+        "monthlyLoad": 135,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1220,
+        "yieldPct": 90.1098360655738,
+        "blend": 90.8980198019802
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Bekaert ",
+        "lane": "Ranjangaon - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 770,
+        "yieldPct": 77.2727272727273,
+        "blend": 84.828025477707
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Tata Steel ",
+        "lane": "Khopoli - Nagpur",
+        "monthlyLoad": 345,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 962,
+        "yieldPct": 72.1621621621622,
+        "blend": 81.2145289443814
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Sanaswadi - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 820,
+        "yieldPct": 70.8658536585366,
+        "blend": 81.3518518518518
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "Nandan Petrochemical",
+        "lane": "JNPT - Nagpur",
+        "monthlyLoad": 240,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1000,
+        "yieldPct": 58.11,
+        "blend": 73.2166666666667
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Aurangabad",
+      "febLoad": 391,
+      "distanceKms": 575,
+      "yieldPct": 105.130434782609,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "M P Rajasthan(Spot) + Vansh ",
+        "lane": "Aurangabad - Mumbai - Nagpur",
+        "monthlyLoad": 400,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1250,
+        "yieldPct": 78.519808,
+        "blend": 86.9039780821918
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Chetak + Vansh(spot)",
+        "lane": "Aurangabad - Mumbai - Nagpur",
+        "monthlyLoad": 400,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1250,
+        "yieldPct": 72.119808,
+        "blend": 82.5204164383562
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Tata Steel ",
+        "lane": "Aurangabad - Khopoli - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1192,
+        "yieldPct": 58.238255033557,
+        "blend": 73.4974533106961
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Nashik",
+      "febLoad": 201,
+      "distanceKms": 662,
+      "yieldPct": 88.0966767371601,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Apar",
+        "lane": "Nashik - Silvassa - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1020,
+        "yieldPct": 72.6470588235294,
+        "blend": 84.3573667711599
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Sangli",
+      "febLoad": 221,
+      "distanceKms": 975,
+      "yieldPct": 90.48,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel ",
+        "lane": "Sangli - Khopoli - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1162,
+        "yieldPct": 59.7418244406196,
+        "blend": 73.7660271408517
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Tata Steel Nagpur",
+      "lane": "Nagpur - Solapur",
+      "febLoad": 161,
+      "distanceKms": 729,
+      "yieldPct": 83.6213991769547,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel ",
+        "lane": "Khopoli - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1152,
+        "yieldPct": 60.2604166666667,
+        "blend": 74.1128349788434
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Mumbai",
+      "febLoad": 39,
+      "distanceKms": 1660,
+      "yieldPct": 93.4048192771084,
+      "minKms": 1000,
+      "maxKms": 1500
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS + Raipur Orissa Roadline",
+        "lane": "Khopoli - Bhopal - Jajpur",
+        "monthlyLoad": 71,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2260,
+        "yieldPct": 78.3716814159292,
+        "blend": 84.7377551020408
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": 109,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2260,
+        "yieldPct": 75.3345132743363,
+        "blend": 82.9867346938776
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Narsinghgarh- Bhopal - Jajpur",
+        "monthlyLoad": 248,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2660,
+        "yieldPct": 73.2451127819549,
+        "blend": 80.9916666666667
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "TSL ",
+        "lane": "Khopoli - Jamshedpur",
+        "monthlyLoad": 80,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2015,
+        "yieldPct": 70.4218362282878,
+        "blend": 80.8032653061225
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Dhenkenal/Jajpur",
+        "monthlyLoad": 229,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1770,
+        "yieldPct": 62.6305084745763,
+        "blend": 77.5241982507289
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "Vansh + Raipur Orissa Roadline",
+        "lane": "Mumbai - Katni - Bhopal -  Jajpur",
+        "monthlyLoad": 404,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2920,
+        "yieldPct": 68.2191780821918,
+        "blend": 77.3475982532751
+      },
+      {
+        "priority": "P7",
+        "returnCustomer": "CJ Darcl + Softstone",
+        "lane": "Vasind -Jaipur - Khimsar - Bhadrak -Kalinganagar",
+        "monthlyLoad": 301,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 3570,
+        "yieldPct": 60.4806722689076,
+        "blend": 70.9307839388145
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Surat",
+      "febLoad": 944,
+      "distanceKms": 1800,
+      "yieldPct": 82.0882777777778,
+      "minKms": 500,
+      "maxKms": 700
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS + Raipur Orissa Roadline",
+        "lane": "Surat - Hazira - Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2625,
+        "yieldPct": 83.9314285714286,
+        "blend": 83.1816723163842
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "AMNS + Vansh + Raipur Orissa Road",
+        "lane": "Surat - Hazira - Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2625,
+        "yieldPct": 81.3165714285714,
+        "blend": 81.6304858757062
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Rudra/Jamshedpur Bhilai(S)",
+        "lane": "Halol - Dhenkanal",
+        "monthlyLoad": 154,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1790,
+        "yieldPct": 63.6871508379888,
+        "blend": 72.9133426183844
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Dev Corp + Chauhan Rl",
+        "lane": "Modassa - Kandla - Bhuj - Angul - Kalinganagar",
+        "monthlyLoad": 73,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 3135,
+        "yieldPct": 61.8181818181818,
+        "blend": 69.2115298885512
+      },
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS + Choudhury (Spot)",
+        "lane": "Surat - Hazira - Jajpur - Khimsar - Bhadrak",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 3556,
+        "yieldPct": 59.1864876265467,
+        "blend": 66.8831310679612
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Ahmedabad",
+      "febLoad": 114,
+      "distanceKms": 1730,
+      "yieldPct": 77.8901734104046,
+      "minKms": 800,
+      "maxKms": 1500
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Merino - Vansh - Raipur Orissa Road",
+        "lane": "Halol - Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": 142,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2978,
+        "yieldPct": 85.3781061114842,
+        "blend": 82.6265930331351
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "AMNS + Vansh + Raipur Orissa Road",
+        "lane": "Surat - Hazira - Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2876,
+        "yieldPct": 74.2197496522949,
+        "blend": 75.5983499782892
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Dev Corp + MD Movers",
+        "lane": "Modassa - Kandla -Kachh - Jajpur - Kal",
+        "monthlyLoad": 120,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2799,
+        "yieldPct": 68.0242943908539,
+        "blend": 71.7928902627512
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "Dev Corp + Chauhan Rl",
+        "lane": "Modassa - Kandla - Bhuj - Angul - Kalinganagar",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2965,
+        "yieldPct": 65.362563237774,
+        "blend": 69.9787007454739
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "Rudra/Jamshedpur Bhilai(S)",
+        "lane": "Halol - Dhenkanal",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1885,
+        "yieldPct": 55.2785145888594,
+        "blend": 66.0995850622407
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Chennai",
+      "febLoad": 0,
+      "distanceKms": 1440,
+      "yieldPct": 94.1027777777778,
+      "minKms": 800,
+      "maxKms": 1500
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "VBL",
+        "lane": "Chennai - Renigunta - Cuttack - Kalinganagar",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1483.5,
+        "yieldPct": 67.9312436804853,
+        "blend": 80.8223020352317
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Nagpur",
+      "febLoad": 122,
+      "distanceKms": 874,
+      "yieldPct": 83.9588100686499,
+      "minKms": 300,
+      "maxKms": 600
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL + Vansh + Rai. Orissa Road",
+        "lane": "Nagpur - Mumbai - Bhopal - Jajpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 3140,
+        "yieldPct": 78.9095541401274,
+        "blend": 80.0089686098655
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - Pune",
+      "febLoad": 33,
+      "distanceKms": 1615,
+      "yieldPct": 92.5077399380805,
+      "minKms": 800,
+      "maxKms": 1200
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL ",
+        "lane": "Khopoli - Jamshedpur",
+        "monthlyLoad": 126,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2105,
+        "yieldPct": 65.3681710213777,
+        "blend": 77.1505376344086
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Dhenkenal",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1820,
+        "yieldPct": 62.8747252747253,
+        "blend": 76.8069868995633
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Kalinganagar",
+      "lane": "Kalinganagar - NCR",
+      "febLoad": 325,
+      "distanceKms": 1630,
+      "yieldPct": 81.5631901840491,
+      "minKms": 800,
+      "maxKms": 1500
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL + Sofstone/Chaudhury(S)",
+        "lane": "Ghaziabad - Jaipur - Khimsar - Bhadrak",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2702,
+        "yieldPct": 59.6284233900814,
+        "blend": 67.881809787627
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Bhadana Transport + Softstone/Chaudhury(S)",
+        "lane": "Faridabad - Jaipur - Khimsar - Bhadrak - Kalinganagar",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2750,
+        "yieldPct": 56.8421818181818,
+        "blend": 66.0420091324201
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Steel",
+      "lane": "Toranagallu - Taloja",
+      "febLoad": 4864,
+      "distanceKms": 770,
+      "yieldPct": 74.4805714285714,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Steel Vasind + Uflex",
+        "lane": "Vasind  - Hazira - Surat - Dharwad",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1495,
+        "yieldPct": 91.8518394648829,
+        "blend": 85.9463752759382
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Mukand(40T MG)",
+        "lane": "Mumbai - Koppal",
+        "monthlyLoad": 500,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 870,
+        "yieldPct": 94.2528735632184,
+        "blend": 84.9695365853659
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "TSL Khopoli",
+        "lane": "Khopoli - Hosur - Toranagallu",
+        "monthlyLoad": 446,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1485,
+        "yieldPct": 74.7474747474748,
+        "blend": 74.6563370288248
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "JSW Steel Vasind + AMNS",
+        "lane": "Vasind  - Silvassa - Hazira - Bangalore - Toranagallu",
+        "monthlyLoad": 843,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2130,
+        "yieldPct": 72.7708920187793,
+        "blend": 73.2248413793103
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "JSW Dolvi(TMT) + AMNS",
+        "lane": "Dolvi  - Surat - Hazira - Bangalore -Toranagallu",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2180,
+        "yieldPct": 72.3009174311927,
+        "blend": 72.8698440677966
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "JSW Steel Tarapur",
+        "lane": "Tarapur -Bengaluru - Toranagallu",
+        "monthlyLoad": 1049,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1620,
+        "yieldPct": 69.6432098765432,
+        "blend": 71.201690376569
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Steel",
+      "lane": "Toranagallu - Pune",
+      "febLoad": 1585,
+      "distanceKms": 670,
+      "yieldPct": 84.2362388059701,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Baekert ",
+        "lane": "Ranjangaon - Sriperumbudur ",
+        "monthlyLoad": 227,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1205,
+        "yieldPct": 102.93112033195,
+        "blend": 86.2879551401869
+      },
+      {
+        "priority": null,
+        "returnCustomer": "TSL",
+        "lane": "Chennai - Bangalore - Toranagallu",
+        "monthlyLoad": 227,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 800,
+        "yieldPct": 62.9375,
+        "blend": null
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Bekaert + VBL(Seasonal)",
+        "lane": "Ranjangaon - Sriperumbudur - Renugunta - Dharwad - Toranagallu",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2204,
+        "yieldPct": 83.4655172413793,
+        "blend": 83.6451913709116
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Bangalore - Toranagallu",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1340,
+        "yieldPct": 74.5820895522388,
+        "blend": 77.8001393034826
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS+RDK",
+        "lane": "Sanaswadi - Mala - Cochin - Bellary",
+        "monthlyLoad": 583,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2510,
+        "yieldPct": 70.7509960159363,
+        "blend": 73.5922264150943
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Steel",
+      "lane": "Toranagallu - Nashik",
+      "febLoad": 450,
+      "distanceKms": 889,
+      "yieldPct": 70.5000674915636,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Steel Vasind + Uflex",
+        "lane": "Vasind  - Hazira - Surat - Dharwad",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1555,
+        "yieldPct": 88.3077170418006,
+        "blend": 81.8302209492635
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "TSL Khopoli",
+        "lane": "Khopoli - Hosur - Toranagallu",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1635,
+        "yieldPct": 67.8899082568807,
+        "blend": 68.8092551505547
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Steel",
+      "lane": "Toranagallu - Khed",
+      "febLoad": 115,
+      "distanceKms": 670,
+      "yieldPct": 86.2767164179104,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL Khopoli",
+        "lane": "Khopoli - Hosur - Toranagallu",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1610,
+        "yieldPct": 68.944099378882,
+        "blend": 74.0374561403509
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Hindalco",
+      "lane": "Raipur - Halol",
+      "febLoad": 1105,
+      "distanceKms": 1405,
+      "yieldPct": 76.5327402135231,
+      "minKms": 0,
+      "maxKms": 0
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS + Bekaert",
+        "lane": "Hazira - Pune - Lonand - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1860,
+        "yieldPct": 90.1612903225806,
+        "blend": 84.2966309341501
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "AMNS + Vansh",
+        "lane": "Halol - Hazira - Mumbai - Raipur",
+        "monthlyLoad": 81,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1810,
+        "yieldPct": 80.2872928176796,
+        "blend": 78.646500777605
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "Merino + AMNS",
+        "lane": "Halol - Mumbai - Khopoli - Nagpur",
+        "monthlyLoad": 40,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2010,
+        "yieldPct": 73.363184079602,
+        "blend": 74.6672035139092
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "AMNS",
+        "lane": "Halol - Hazira - Pune - Sanaswadi - Nagpur",
+        "monthlyLoad": 80,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1800,
+        "yieldPct": 60.6388888888889,
+        "blend": 67.6063962558502
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "AMNS",
+        "lane": "Halol - Hazira - Mumbai - Khopoli - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1810,
+        "yieldPct": 58.9281767955801,
+        "blend": 66.6216174183515
+      },
+      {
+        "priority": "P6",
+        "returnCustomer": "AMNS + Vansh",
+        "lane": "Halol - Hazira - Mumbai - JNPT - Nagpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1820,
+        "yieldPct": 55.8065934065934,
+        "blend": 64.8361240310078
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Mumbai",
+      "febLoad": 356,
+      "distanceKms": 1408,
+      "yieldPct": 97.6988636363636,
+      "minKms": 500,
+      "maxKms": 800
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Vansh+Vikas trailer(Spot) ",
+        "lane": "Mumbai - Nagpur - Raipur",
+        "monthlyLoad": 319,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1456,
+        "yieldPct": 70.8131868131868,
+        "blend": 84.0307262569832
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Raipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1375,
+        "yieldPct": 66.88,
+        "blend": 82.4721523535753
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Bellary",
+      "febLoad": 600,
+      "distanceKms": 1613,
+      "yieldPct": 92.1015499070056,
+      "minKms": 80,
+      "maxKms": 120
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Steel +Vansh(spot)",
+        "lane": "Toranagallu - Mumbai - Nagpur - Raipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1881,
+        "yieldPct": 75.0951834130782,
+        "blend": 82.9461476817401
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Surat",
+      "febLoad": 117,
+      "distanceKms": 1420,
+      "yieldPct": 86.5704225352113,
+      "minKms": 80,
+      "maxKms": 120
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS Hazira",
+        "lane": "Hazira - Taloja",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 370,
+        "yieldPct": 108.108108108108,
+        "blend": 78.2606214331008
+      },
+      {
+        "priority": null,
+        "returnCustomer": "Vansh(Spot)",
+        "lane": "Mumbai - Raipur",
+        "monthlyLoad": 1,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1364,
+        "yieldPct": 61.5131964809384,
+        "blend": null
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Ahmedabad",
+      "febLoad": 571,
+      "distanceKms": 1532,
+      "yieldPct": 86.298955613577,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AshTech +Vansh(Spot)",
+        "lane": "Jhagadia - Panvel - Raipur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1787,
+        "yieldPct": 71.5299384443201,
+        "blend": 78.3470924977403
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Banglore",
+      "febLoad": 901,
+      "distanceKms": 1821,
+      "yieldPct": 90.8058758923668,
+      "minKms": 80,
+      "maxKms": 120
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Steel +Vansh(spot)",
+        "lane": "Toranagallu - Mumbai - Nagpur - Raipur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2221,
+        "yieldPct": 63.5992976136875,
+        "blend": 75.8563928748145
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSPL Raigarh",
+      "lane": "Raigarh - Jaipur",
+      "febLoad": 153,
+      "distanceKms": 1746,
+      "yieldPct": 71.1683848797251,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Choudhry(Spot)",
+        "lane": "Jaipur - Khimsar - Raigarh",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1785,
+        "yieldPct": 65.9943977591036,
+        "blend": 68.5528178986123
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Empty return",
+      "lane": "Raigarh - Nagpur",
+      "febLoad": 80,
+      "distanceKms": 610,
+      "yieldPct": 112.524590163934,
+      "minKms": 80,
+      "maxKms": 120
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "TSL Tarapur",
+      "lane": "Tarapur - Taloja",
+      "febLoad": 4245,
+      "distanceKms": 140,
+      "yieldPct": 173.535714285714,
+      "minKms": 0,
+      "maxKms": 0
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "Empty",
+        "lane": null,
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 0,
+        "yieldPct": 0,
+        "blend": 86.7678571428571
+      },
+      {
+        "priority": null,
+        "returnCustomer": "Empty",
+        "lane": null,
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 0,
+        "yieldPct": 0,
+        "blend": 81.2838709677419
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Tarapur",
+      "lane": "Tarapur - Taloja",
+      "febLoad": 4245,
+      "distanceKms": 140,
+      "yieldPct": 161.428571428571,
+      "minKms": 0,
+      "maxKms": 0
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Palghar - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 240,
+        "yieldPct": 88.6458333333333,
+        "blend": 115.460526315789
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Vasai - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 250,
+        "yieldPct": 88.8,
+        "blend": 114.871794871795
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 255,
+        "yieldPct": 86.3333333333333,
+        "blend": 112.949367088608
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Boisar - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 252,
+        "yieldPct": 84.4246031746032,
+        "blend": 111.926020408163
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Wada - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 265,
+        "yieldPct": 83.7735849056604,
+        "blend": 110.617283950617
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Bhiwandi - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 255,
+        "yieldPct": 81.4,
+        "blend": 109.764556962025
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Navi Mumbai - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 235,
+        "yieldPct": 70.6936170212766,
+        "blend": 104.568
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Silvassa - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 390,
+        "yieldPct": 83.4871794871795,
+        "blend": 104.075471698113
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Nani - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 390,
+        "yieldPct": 83.4871794871795,
+        "blend": 104.075471698113
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Thane- Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 230,
+        "yieldPct": 66.7608695652174,
+        "blend": 102.581081081081
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Taloja- Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 235,
+        "yieldPct": 55.736170212766,
+        "blend": 95.1946666666667
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Vashi - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 240,
+        "yieldPct": 51.6458333333333,
+        "blend": 92.0921052631579
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Rabale- Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 240,
+        "yieldPct": 53.65,
+        "blend": 93.3578947368421
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Kalamboli - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 250,
+        "yieldPct": 46.472,
+        "blend": 87.7384615384615
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Panvel - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 240,
+        "yieldPct": 43.1666666666667,
+        "blend": 86.7368421052632
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Valsad - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 450,
+        "yieldPct": 62.4888888888889,
+        "blend": 85.9661016949153
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Khalapur - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 235,
+        "yieldPct": 29.1276595744681,
+        "blend": 78.52
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "TSL Tarapur",
+      "lane": "Tarapur - Pune",
+      "febLoad": 4046,
+      "distanceKms": 310,
+      "yieldPct": 151.225806451613,
+      "minKms": 0,
+      "maxKms": 0
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Palghar - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 320,
+        "yieldPct": 80.9375,
+        "blend": 115.52380952381
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Wada -Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 325,
+        "yieldPct": 74,
+        "blend": 111.700787401575
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 345,
+        "yieldPct": 75.0724637681159,
+        "blend": 111.114503816794
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS + Chetak",
+        "lane": "Pune - Talegaon - Aurangabad- Tarapur",
+        "monthlyLoad": 39,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 745,
+        "yieldPct": 94.8161073825503,
+        "blend": 111.391469194313
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Bhiwandi - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 335,
+        "yieldPct": 66.2686567164179,
+        "blend": 107.100775193798
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Daman - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 480,
+        "yieldPct": 78.625,
+        "blend": 107.113924050633
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Silvasa - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 480,
+        "yieldPct": 78.625,
+        "blend": 107.113924050633
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Thane -Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 325,
+        "yieldPct": 65.4615384615385,
+        "blend": 107.330708661417
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Vasai -Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 340,
+        "yieldPct": 62.5735294117647,
+        "blend": 104.853846153846
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Rabale - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 340,
+        "yieldPct": 57.1323529411765,
+        "blend": 102.007692307692
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Valsad -Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 541,
+        "yieldPct": 71.81146025878,
+        "blend": 100.740305522914
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Navi Mumbai - Tarapur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 325,
+        "yieldPct": 51.2307692307692,
+        "blend": 100.047244094488
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Talegaon - Nashik- Tarapur",
+        "monthlyLoad": 261,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 527,
+        "yieldPct": 58.9051233396584,
+        "blend": 93.0979689366786
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Panvel - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 330,
+        "yieldPct": 50.4545454545455,
+        "blend": 99.265625
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Taloja - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 330,
+        "yieldPct": 50.4545454545455,
+        "blend": 99.265625
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Kalamboli - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 340,
+        "yieldPct": 48.4264705882353,
+        "blend": 97.4538461538462
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Pune - Khalapur - Tarapur",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 330,
+        "yieldPct": 44.8484848484849,
+        "blend": 96.375
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Toranagallu",
+      "lane": "Toranagallu - Pune",
+      "febLoad": 4978,
+      "distanceKms": 600,
+      "yieldPct": 122.186,
+      "minKms": 4000,
+      "maxKms": 6000
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "Empty",
+        "lane": null,
+        "monthlyLoad": 4978,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 602,
+        "yieldPct": 0,
+        "blend": 61.093
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "RD - Dariba",
+      "febLoad": 30000,
+      "distanceKms": 1.5,
+      "yieldPct": 1690,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Empty",
+        "lane": "Dariba - RD",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1.5,
+        "yieldPct": 0,
+        "blend": 845
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "SK - Dariba",
+      "febLoad": 129000,
+      "distanceKms": 8,
+      "yieldPct": 409.5,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P2",
+        "returnCustomer": "Empty",
+        "lane": "Dariba - SK",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 8,
+        "yieldPct": 0,
+        "blend": 204.75
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "RD - Debari",
+      "febLoad": 6000,
+      "distanceKms": 65,
+      "yieldPct": 172.8,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "HZL Concentrate",
+        "lane": "Debari - Zawar - Dariba",
+        "monthlyLoad": 24000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 170,
+        "yieldPct": 94.2882352941176,
+        "blend": 116.004255319149
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "HZL Concentrate",
+        "lane": "Debari - Zawar - Dariba",
+        "monthlyLoad": 24000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 170,
+        "yieldPct": 94.2882352941176,
+        "blend": 113.469135802469
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "Agucha - Dariba",
+      "febLoad": 228000,
+      "distanceKms": 155,
+      "yieldPct": 120.522580645161,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "HZL Concentrate",
+        "lane": "Dariba - RD - Debari - Zawar - Chanderiya",
+        "monthlyLoad": 25000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 273,
+        "yieldPct": 112.571428571429,
+        "blend": 115.450934579439
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "HZL Concentrate",
+        "lane": "Dariba - SK - Debari - Zawar - Chanderiya",
+        "monthlyLoad": 25000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 286,
+        "yieldPct": 108.545454545455,
+        "blend": 112.755102040816
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "Agucha - Debari",
+      "febLoad": 84000,
+      "distanceKms": 225,
+      "yieldPct": 108.333333333333,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "HZL Concentrate",
+        "lane": "Debari - Zawar - Debari",
+        "monthlyLoad": 12000,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 110,
+        "yieldPct": 117.709090909091,
+        "blend": 111.411940298507
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "Zawar - Chanderiya",
+      "febLoad": 25000,
+      "distanceKms": 150,
+      "yieldPct": 130,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Empty",
+        "lane": "Chanderiya - Agucha ",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 120,
+        "yieldPct": 0,
+        "blend": 72.2222222222222
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "Agucha - Chanderiya",
+      "febLoad": 258000,
+      "distanceKms": 120,
+      "yieldPct": 124.475,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Empty",
+        "lane": "Chanderiya - SK/RD",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 95,
+        "yieldPct": 0,
+        "blend": 69.4744186046512
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "RD - Chanderiya",
+      "febLoad": 9000,
+      "distanceKms": 90,
+      "yieldPct": 119.166666666667,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Empty",
+        "lane": "Chanderiya - RD",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 90,
+        "yieldPct": 0,
+        "blend": 59.5833333333333
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "HZL Concentrate",
+      "lane": "SK - Chanderiya",
+      "febLoad": 120000,
+      "distanceKms": 98,
+      "yieldPct": 120.183673469388,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Empty",
+        "lane": "Chanderiya - SK",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 98,
+        "yieldPct": 0,
+        "blend": 60.0918367346939
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Dolvi",
+      "lane": "Dolvi - Umargam",
+      "febLoad": 314,
+      "distanceKms": 265,
+      "yieldPct": 137.015094339623,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Dolvi",
+      "lane": "Dolvi - Gandhinagar",
+      "febLoad": 120,
+      "distanceKms": 596,
+      "yieldPct": 126.946308724832,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Dolvi",
+      "lane": "Dolvi - Dholera",
+      "febLoad": 704,
+      "distanceKms": 621,
+      "yieldPct": 121.458937198068,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Dolvi",
+      "lane": "Dolvi - Igatpuri",
+      "febLoad": 117,
+      "distanceKms": 225,
+      "yieldPct": 121.210451555556,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "JSW Cement Dolvi",
+      "lane": "Dolvi - Surat",
+      "febLoad": 706,
+      "distanceKms": 408,
+      "yieldPct": 120.058823529412,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": []
+  },
+  {
+    "forward": {
+      "customer": "MP Birla",
+      "lane": "Mukutban - Harda",
+      "febLoad": 160,
+      "distanceKms": 480,
+      "yieldPct": 135.333333333333,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "Market",
+        "lane": "Harda - Mukutban",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 463,
+        "yieldPct": 64.7948164146868,
+        "blend": 100.699893955461
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "MP Birla",
+      "lane": "Mukutban - Bhopal",
+      "febLoad": 2160,
+      "distanceKms": 535,
+      "yieldPct": 124.859813084112,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "Market",
+        "lane": "Bhopal - Mukutban",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 497,
+        "yieldPct": 70.4225352112676,
+        "blend": 98.6434108527132
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "MP Birla",
+      "lane": "Mukutban - Jabalpur",
+      "febLoad": 320,
+      "distanceKms": 485,
+      "yieldPct": 114.886597938144,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": null,
+        "returnCustomer": "Market",
+        "lane": "Katni-Wani-Mukut",
+        "monthlyLoad": 391,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 689,
+        "yieldPct": 65.3904208998549,
+        "blend": 85.8381601362862
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Nagpur",
+      "febLoad": 0,
+      "distanceKms": 640,
+      "yieldPct": 92.96875,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel",
+        "lane": "Nagpur - Pune",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 750,
+        "yieldPct": 104,
+        "blend": 98.9208633093525
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Sriperumbudur",
+      "febLoad": 227,
+      "distanceKms": 1160,
+      "yieldPct": 106.924137931034,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL + JSW",
+        "lane": "Chennai - Hosur - Toranagallu - Pune",
+        "monthlyLoad": 618,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1460,
+        "yieldPct": 71.5753424657534,
+        "blend": 87.2259541984733
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Pondicherry",
+      "febLoad": 0,
+      "distanceKms": 1170,
+      "yieldPct": 102.038461538462,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL + JSW",
+        "lane": "Chennai - Hosur - Toranagallu - Pune",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1590,
+        "yieldPct": 65.7232704402516,
+        "blend": 81.1177536231884
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Halol",
+      "febLoad": 0,
+      "distanceKms": 630,
+      "yieldPct": 79.8,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "AMNS",
+        "lane": "Hazira - Pune",
+        "monthlyLoad": 400,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 767,
+        "yieldPct": 76.271186440678,
+        "blend": 77.8625626342162
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Chittoor",
+      "febLoad": 149,
+      "distanceKms": 1040,
+      "yieldPct": 100.682692307692,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "VBL(Seasonal)",
+        "lane": "Chitoor- Supa - Ranj",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1097,
+        "yieldPct": 77.0045578851413,
+        "blend": 88.5278427702386
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Suraj Group",
+        "lane": "Chitoor- Chennai - Pune - Ranj",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1251,
+        "yieldPct": 62.7498001598721,
+        "blend": 79.9694456569184
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "VBL(Seasonal)",
+        "lane": "Chitoor- Aurangabad - Ranj",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1283,
+        "yieldPct": 58.2883865939205,
+        "blend": 77.2681876883341
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "JSW",
+        "lane": "Toranagallu - Pune",
+        "monthlyLoad": 149,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1040,
+        "yieldPct": 54.2961538461538,
+        "blend": 77.4894230769231
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Haridwar",
+      "febLoad": 0,
+      "distanceKms": 1600,
+      "yieldPct": 83.671875,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL",
+        "lane": "Sahibabad - Sanaswadi",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1820,
+        "yieldPct": 62.9406593406593,
+        "blend": 72.6394736842105
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Bekaert",
+      "lane": "Ranjangaon - Perambalur",
+      "febLoad": 283,
+      "distanceKms": 1332,
+      "yieldPct": 102.852852852853,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Suraj Group",
+        "lane": "Chitoor- Chennai - Pune - Ranj",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1251,
+        "yieldPct": 62.7498001598721,
+        "blend": 83.4301200154859
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Steel",
+        "lane": "Toranagallu - Pune",
+        "monthlyLoad": 290,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1360,
+        "yieldPct": 39.8161764705882,
+        "blend": 71.0066864784547
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Uflex",
+      "lane": "Surat - Dharwad",
+      "febLoad": 512,
+      "distanceKms": 870,
+      "yieldPct": 105.086206896552,
+      "minKms": 400,
+      "maxKms": 400
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "JSW Steel",
+        "lane": "Bellary - Taloja",
+        "monthlyLoad": 500,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1005,
+        "yieldPct": 55.8865671641791,
+        "blend": 84.6565121412804
+      },
+      {
+        "priority": null,
+        "returnCustomer": "JSW Steel",
+        "lane": "Vasind - Hazira - Surat",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 390,
+        "yieldPct": 113.220512820513,
+        "blend": null
+      },
+      {
+        "priority": null,
+        "returnCustomer": "JSW Steel",
+        "lane": "Bellary - Taloja",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1005,
+        "yieldPct": 57.3970149253731,
+        "blend": 81.6093126385809
+      },
+      {
+        "priority": null,
+        "returnCustomer": "AMNS",
+        "lane": "Khopoli - Surat",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 380,
+        "yieldPct": 91.8947368421053,
+        "blend": null
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Steel",
+        "lane": "Bellary - Taloja",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1005,
+        "yieldPct": 57.3970149253731,
+        "blend": 74.276261682243
+      },
+      {
+        "priority": null,
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Vadodara",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 800,
+        "yieldPct": 61.975,
+        "blend": null
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Emami",
+      "lane": "Kandla - Delhi",
+      "febLoad": 342,
+      "distanceKms": 1258,
+      "yieldPct": 87.5993640699523,
+      "minKms": 400,
+      "maxKms": 600
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "TSL & Dev Corporation",
+        "lane": "Sahibabad - Ahm - Modasa - Kandla",
+        "monthlyLoad": 259,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1650,
+        "yieldPct": 58.7272727272727,
+        "blend": 71.2173314993122
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSL & Dev Corporation",
+        "lane": "Hissar-Ahm-Modasa-Kandla",
+        "monthlyLoad": 109,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1766,
+        "yieldPct": 45.2740656851642,
+        "blend": 62.8816137566138
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Merino Laminates",
+      "lane": "Halol - Shirwal",
+      "febLoad": 0,
+      "distanceKms": 760,
+      "yieldPct": 110.526315789474,
+      "minKms": 200,
+      "maxKms": 400
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Bekaert",
+        "lane": "Ranjangaon - Halol",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 736,
+        "yieldPct": 120.652173913043,
+        "blend": 115.508021390374
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "TSL",
+        "lane": "Khopoli - Vadodara",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 740,
+        "yieldPct": 67,
+        "blend": 89.0533333333333
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Merino Laminates",
+      "lane": "Dahej - Hosur",
+      "febLoad": 262,
+      "distanceKms": 1500,
+      "yieldPct": 100.8,
+      "minKms": 200,
+      "maxKms": 400
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Merino Laminates",
+        "lane": "Hosur - Surat",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1568,
+        "yieldPct": 89.2857142857143,
+        "blend": 94.9152542372881
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSW Steel + TSL",
+        "lane": "Bellary - Pune - Khopoli - Vadodara",
+        "monthlyLoad": 169,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1615,
+        "yieldPct": 65.0061919504644,
+        "blend": 82.2423756019262
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "JSW Steel + TSL",
+        "lane": "Bellary - Mumbai - Vadodara - Dahej",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1625,
+        "yieldPct": 64.2498461538461,
+        "blend": 81.79392
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "VBL+ Chetak(S)",
+        "lane": "Krishnagiri - Aurangabad - Surat",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1500,
+        "yieldPct": 72.808,
+        "blend": 86.804
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "Exide Industries",
+        "lane": "Hosur - Ahm",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1930,
+        "yieldPct": 45.5958549222798,
+        "blend": 69.7376093294461
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Merino Laminates",
+      "lane": "Halol - Hosur",
+      "febLoad": 933,
+      "distanceKms": 1740,
+      "yieldPct": 94.8275862068966,
+      "minKms": 200,
+      "maxKms": 400
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Merino Laminates",
+        "lane": "Hosur - Surat",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1580,
+        "yieldPct": 88.6075949367089,
+        "blend": 91.8674698795181
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "VBL+ Chetak(S) + AMNS",
+        "lane": "Krishnagiri - Aurangabad - Surat - Halol",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1690,
+        "yieldPct": 87.6994082840237,
+        "blend": 91.3154518950437
+      },
+      {
+        "priority": "P3",
+        "returnCustomer": "JSW Steel + TSL",
+        "lane": "Bellary - Pune - Khopoli - Vadodara",
+        "monthlyLoad": 100,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1570,
+        "yieldPct": 66.8694267515924,
+        "blend": 81.5664652567976
+      },
+      {
+        "priority": "P4",
+        "returnCustomer": "JSW Steel + TSL",
+        "lane": "Bellary - Mumbai - Vadodara - Halol",
+        "monthlyLoad": 100,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1550,
+        "yieldPct": 67.3587096774194,
+        "blend": 81.8863221884499
+      },
+      {
+        "priority": "P5",
+        "returnCustomer": "Exide Industries",
+        "lane": "Hosur - Ahm",
+        "monthlyLoad": 100,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1770,
+        "yieldPct": 49.7175141242938,
+        "blend": 72.0797720797721
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Merino Laminates",
+      "lane": "Halol - Hapur",
+      "febLoad": 38,
+      "distanceKms": 1100,
+      "yieldPct": 93.6363636363636,
+      "minKms": 300,
+      "maxKms": 300
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel",
+        "lane": "Sahibabad - Ahm",
+        "monthlyLoad": 100,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1152,
+        "yieldPct": 59.375,
+        "blend": 76.1101243339254
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "JSL Hisar",
+        "lane": "Hisar - Ahmedabad",
+        "monthlyLoad": 50,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 1380,
+        "yieldPct": 47.4782608695652,
+        "blend": 67.9516129032258
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Softstone/Choudhary Transport",
+      "lane": "Khimsar - Salem",
+      "febLoad": 78,
+      "distanceKms": 2372,
+      "yieldPct": 77.2765598650928,
+      "minKms": 600,
+      "maxKms": 800
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Varun Beverages(Seasonal)",
+        "lane": "Hosur/Chittoor-Kota-Jodhpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2320,
+        "yieldPct": 80.6495689655172,
+        "blend": 78.9443734015345
+      },
+      {
+        "priority": "P2",
+        "returnCustomer": "Exide + JSL",
+        "lane": "Hosur - Delhi - Hisar - Jodhpur",
+        "monthlyLoad": 0,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2975,
+        "yieldPct": 62.4036974789916,
+        "blend": 69.0014961660744
+      },
+      {
+        "priority": null,
+        "returnCustomer": "JSW",
+        "lane": "Salem - Jaipur",
+        "monthlyLoad": 115,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2550,
+        "yieldPct": 56.8509803921569,
+        "blend": 66.6944331572531
+      },
+      {
+        "priority": null,
+        "returnCustomer": "Spot",
+        "lane": "Hosur - Jaipur",
+        "monthlyLoad": 78,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2563,
+        "yieldPct": 50.4096761607491,
+        "blend": 63.323201621074
+      }
+    ]
+  },
+  {
+    "forward": {
+      "customer": "Softstone/Choudhary Transport",
+      "lane": "Khimsar - Bhadrak",
+      "febLoad": 301,
+      "distanceKms": 2000,
+      "yieldPct": 65.905,
+      "minKms": null,
+      "maxKms": null
+    },
+    "returns": [
+      {
+        "priority": "P1",
+        "returnCustomer": "Tata Steel + Mukand + JSL",
+        "lane": "Kalinganagar - Mumbai - Bahadurgarh - Hisar - Jodhpur",
+        "monthlyLoad": 38,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 4095,
+        "yieldPct": 77.7304029304029,
+        "blend": 73.8500410172272
+      },
+      {
+        "priority": null,
+        "returnCustomer": "Tata Steel + CJ Darcl",
+        "lane": "Kalinganagar - Mumbai - Jaipur - Khimsar",
+        "monthlyLoad": null,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 3215,
+        "yieldPct": 74.2307931570762,
+        "blend": 71.0377756471716
+      },
+      {
+        "priority": null,
+        "returnCustomer": "Tata Steel",
+        "lane": "Kalinganagar - NCR - Gaziabad - Jaipur- Khimsar",
+        "monthlyLoad": 352,
+        "distanceLoaded": null,
+        "distanceEmpty": null,
+        "totalDistance": 2332,
+        "yieldPct": 70.0463121783877,
+        "blend": 68.1343490304709
+      }
+    ]
+  }
+];
+  </script>
+
+  <script type="text/babel" data-presets="react">
+/* Components: icons, table, return rows, etc. */
+const { useState, useMemo, useRef, useEffect, useCallback } = React;
+
+/* ───────────────── icons (inline SVG) ─────────────── */
+const Icon = {
+  Chevron: (p) => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" {...p}><polyline points="9 18 15 12 9 6"/></svg>
+  ),
+  Plus: (p) => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" {...p}><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+  ),
+  Search: (p) => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+  ),
+  Edit: (p) => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+  ),
+  Trash: (p) => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+  ),
+  Upload: (p) => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+  ),
+  Download: (p) => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+  ),
+  X: (p) => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" {...p}><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  ),
+  File: (p) => (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...p}><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></svg>
+  ),
+  Drag: (p) => (
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" {...p}><circle cx="9" cy="6" r="1.6"/><circle cx="15" cy="6" r="1.6"/><circle cx="9" cy="12" r="1.6"/><circle cx="15" cy="12" r="1.6"/><circle cx="9" cy="18" r="1.6"/><circle cx="15" cy="18" r="1.6"/></svg>
+  ),
+  Check: (p) => (
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" {...p}><polyline points="20 6 9 17 4 12"/></svg>
+  ),
+};
+
+/* ───────────────── formatters ─────────────── */
+const fmt = {
+  num(v, dp = 0) {
+    if (v === null || v === undefined || v === '') return '—';
+    const n = +v;
+    if (isNaN(n)) return String(v);
+    return n.toLocaleString('en-IN', { maximumFractionDigits: dp, minimumFractionDigits: dp });
+  },
+  pct(v) {
+    if (v === null || v === undefined || v === '') return null;
+    return +v;
+  },
+  range(min, max) {
+    if (!min && !max) return '—';
+    if (min == null) return `≤ ${fmt.num(max)}`;
+    if (max == null) return `≥ ${fmt.num(min)}`;
+    if (+min === +max) return fmt.num(min);
+    return `${fmt.num(min)} – ${fmt.num(max)}`;
+  },
+  date(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    return d.toLocaleString('en-IN', { day: '2-digit', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  },
+  dateShort(iso) {
+    if (!iso) return '—';
+    const d = new Date(iso);
+    const now = new Date();
+    const diff = (now - d) / 1000;
+    if (diff < 60) return 'just now';
+    if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+    if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+    if (diff < 604800) return `${Math.floor(diff/86400)}d ago`;
+    return d.toLocaleDateString('en-IN', { day: '2-digit', month: 'short' });
+  },
+};
+
+function yieldTone(v) {
+  if (v == null) return 'mid';
+  if (v >= 78) return 'high';
+  if (v >= 68) return 'mid';
+  return 'low';
+}
+
+function YieldChip({ value }) {
+  if (value == null || value === '') return <span className="num">—</span>;
+  return (
+    <span className={`yield-chip ${yieldTone(value)}`}>
+      <span className="mono">{(+value).toFixed(1)}</span><span className="pct">%</span>
+    </span>
+  );
+}
+
+function PriBadge({ p }) {
+  const k = String(p || '').toLowerCase();
+  return <span className={`pri-badge ${k}`}>{p || '–'}</span>;
+}
+
+/* ───────────────── records table ─────────────── */
+function RecordsTable({ records, onEdit, onDelete, onAdd, query }) {
+  const [expanded, setExpanded] = useState(() => new Set());
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return records;
+    return records.filter(r => {
+      const hay = [
+        r.forward?.customer, r.forward?.lane,
+        ...(r.returns || []).flatMap(x => [x.returnCustomer, x.lane, x.priority])
+      ].filter(Boolean).join(' ').toLowerCase();
+      return hay.includes(q);
+    });
+  }, [records, query]);
+
+  const toggle = (id) => setExpanded(prev => {
+    const next = new Set(prev);
+    next.has(id) ? next.delete(id) : next.add(id);
+    return next;
+  });
+
+  if (!records.length) {
+    return (
+      <div className="empty">
+        <Icon.File />
+        <h3>No records yet</h3>
+        <p>Add a record or import an existing Ready Reckoner spreadsheet.</p>
+        <div style={{ display: 'flex', gap: 8, justifyContent: 'center', marginTop: 16 }}>
+          <button className="btn btn-primary" onClick={onAdd}><Icon.Plus/> New record</button>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="table-wrap">
+      <table className="records-table">
+        <thead>
+          <tr>
+            <th colSpan="4" className="group-fwd" style={{ borderBottom: '1px solid var(--border-soft)' }}>Forward Lane — Customer Origin</th>
+            <th colSpan="3" className="group-ret" style={{ borderBottom: '1px solid var(--border-soft)' }}>Return Lane summary</th>
+            <th></th>
+          </tr>
+          <tr>
+            <th>Customer / Lane</th>
+            <th className="num">Feb Load</th>
+            <th className="num">Distance</th>
+            <th className="num">Yield</th>
+            <th>Priorities</th>
+            <th className="num">Top blend</th>
+            <th>Updated</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {filtered.map((rec) => {
+            const isOpen = expanded.has(rec.id);
+            const topBlend = (rec.returns || []).reduce((b, r) => r.blend != null && (b == null || r.blend > b) ? r.blend : b, null);
+            return (
+              <React.Fragment key={rec.id}>
+                <tr className={`fwd-row ${isOpen ? 'expanded' : ''}`} onClick={() => toggle(rec.id)}>
+                  <td>
+                    <div className="fwd-customer">
+                      <span className="chevron"><Icon.Chevron /></span>
+                      <div className="fwd-customer-text">
+                        <div className="fwd-customer-name">{rec.forward.customer || '—'}</div>
+                        <div className="fwd-lane">{rec.forward.lane || '—'}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td className="num num-strong">{fmt.num(rec.forward.febLoad)}</td>
+                  <td className="num range-cell">
+                    <div>{fmt.num(rec.forward.distanceKms)} <span style={{ color: 'var(--text-faint)' }}>km</span></div>
+                    <div style={{ fontSize: 11, color: 'var(--text-faint)' }}>{fmt.range(rec.forward.minKms, rec.forward.maxKms)}</div>
+                  </td>
+                  <td className="num"><YieldChip value={rec.forward.yieldPct} /></td>
+                  <td>
+                    <span className="priority-count">{(rec.returns || []).length} priorit{(rec.returns || []).length === 1 ? 'y' : 'ies'}</span>
+                  </td>
+                  <td className="num"><YieldChip value={topBlend} /></td>
+                  <td style={{ fontSize: 12, color: 'var(--text-mut)' }}>
+                    <div>{fmt.dateShort(rec.updatedAt || rec.createdAt)}</div>
+                    <div style={{ fontSize: 11, color: 'var(--text-faint)' }}>by {rec.updatedBy || rec.createdBy || '—'}</div>
+                  </td>
+                  <td>
+                    <div className="row-actions">
+                      <button className="btn btn-sm" onClick={(e) => { e.stopPropagation(); onEdit(rec); }} title="Edit"><Icon.Edit/> Edit</button>
+                      <button className="btn btn-sm btn-danger btn-icon" onClick={(e) => { e.stopPropagation(); if (confirm(`Delete record for ${rec.forward.customer}?`)) onDelete(rec); }} title="Delete"><Icon.Trash/></button>
+                    </div>
+                  </td>
+                </tr>
+                {isOpen && (
+                  <tr className="returns-wrap">
+                    <td colSpan="8">
+                      <div className="returns-inner">
+                        <ReturnsTable returns={rec.returns || []} />
+                        <div className="meta-row">
+                          <span><b>Created</b> {fmt.date(rec.createdAt)} · <b>by</b> {rec.createdBy || '—'}</span>
+                          {rec.updatedAt && rec.updatedAt !== rec.createdAt && (
+                            <span><b>Updated</b> {fmt.date(rec.updatedAt)} · <b>by</b> {rec.updatedBy || '—'}</span>
+                          )}
+                          <span style={{ marginLeft: 'auto', fontFamily: 'Geist Mono, monospace', color: 'var(--text-faint)' }}>#{rec.id.slice(0, 8)}</span>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                )}
+              </React.Fragment>
+            );
+          })}
+        </tbody>
+      </table>
+      {filtered.length === 0 && (
+        <div className="empty">
+          <p>No records match “{query}”.</p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ReturnsTable({ returns }) {
+  if (!returns.length) {
+    return <div style={{ color: 'var(--text-mut)', fontSize: 12, padding: '8px 4px' }}>No return priorities defined.</div>;
+  }
+  return (
+    <table className="returns-table">
+      <thead>
+        <tr>
+          <th style={{ width: 50 }}>Pri</th>
+          <th>Return Customer</th>
+          <th>Lane</th>
+          <th className="num">Monthly Load</th>
+          <th className="num">Loaded</th>
+          <th className="num">Empty</th>
+          <th className="num">Total KMS</th>
+          <th className="num">Yield</th>
+          <th className="num">Blend</th>
+        </tr>
+      </thead>
+      <tbody>
+        {returns.map((r, i) => (
+          <tr key={i}>
+            <td><PriBadge p={r.priority}/></td>
+            <td style={{ fontWeight: 500 }}>{r.returnCustomer || '—'}</td>
+            <td style={{ color: 'var(--text-mid)' }}>{r.lane || '—'}</td>
+            <td className="num">{fmt.num(r.monthlyLoad)} <span style={{ color: 'var(--text-faint)', fontSize: 10 }}>MT</span></td>
+            <td className="num">{fmt.num(r.distanceLoaded)}</td>
+            <td className="num">{fmt.num(r.distanceEmpty)}</td>
+            <td className="num num-strong">{fmt.num(r.totalDistance)}</td>
+            <td className="num"><YieldChip value={r.yieldPct} /></td>
+            <td className="num"><YieldChip value={r.blend} /></td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
+}
+
+/* ───────────────── login / user picker ─────────────── */
+const SEED_USERS = [
+  { id: 'u-rashmi',  name: 'Rashmi Bhat',   role: 'Logistics Manager' },
+  { id: 'u-arjun',   name: 'Arjun Mehra',   role: 'Yield Analyst' },
+  { id: 'u-priya',   name: 'Priya Iyer',    role: 'Ops Lead' },
+  { id: 'u-vikram',  name: 'Vikram Shah',   role: 'Regional Head' },
+];
+
+function initials(name) {
+  return (name || '').split(/\s+/).map(s => s[0]).filter(Boolean).slice(0,2).join('').toUpperCase();
+}
+
+function LoginModal({ onLogin }) {
+  const [selected, setSelected] = useState(SEED_USERS[0].id);
+  const [custom, setCustom] = useState('');
+  return (
+    <div className="login-overlay">
+      <div className="login-card">
+        <div className="brand">
+          <div className="brand-mark">RR</div>
+          <div>
+            <div className="brand-name">Ready Reckoner</div>
+            <div className="brand-sub">Lane Yield Tracker</div>
+          </div>
+        </div>
+        <h2>Sign in to continue</h2>
+        <p>Pick a profile to track who creates and edits records.</p>
+        <div className="user-picker">
+          {SEED_USERS.map(u => (
+            <div key={u.id} className={`user-option ${selected === u.id ? 'selected' : ''}`} onClick={() => { setSelected(u.id); setCustom(''); }}>
+              <div className="user-avatar">{initials(u.name)}</div>
+              <div className="user-option-meta">
+                <div className="user-option-name">{u.name}</div>
+                <div className="user-option-role">{u.role}</div>
+              </div>
+              {selected === u.id && !custom && <div style={{ marginLeft: 'auto', color: 'var(--primary)' }}><Icon.Check/></div>}
+            </div>
+          ))}
+        </div>
+        <div className="field">
+          <label>Or enter your name <span className="hint">(custom user id)</span></label>
+          <input type="text" placeholder="e.g. Aman Verma" value={custom} onChange={e => { setCustom(e.target.value); setSelected(''); }} />
+        </div>
+        <button className="btn btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: 6 }}
+          onClick={() => {
+            if (custom.trim()) {
+              const u = { id: 'u-' + custom.trim().toLowerCase().replace(/\s+/g, '-'), name: custom.trim(), role: 'User' };
+              onLogin(u);
+            } else {
+              onLogin(SEED_USERS.find(x => x.id === selected));
+            }
+          }}>
+          Continue
+        </button>
+      </div>
+    </div>
+  );
+}
+
+/* ───────────────── toast ─────────────── */
+function ToastStack({ toasts }) {
+  return (
+    <div className="toast-stack">
+      {toasts.map(t => (
+        <div key={t.id} className={`toast ${t.kind || ''}`}>
+          {t.kind === 'success' && <Icon.Check />}
+          {t.kind === 'error' && <Icon.X />}
+          <span>{t.msg}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+Object.assign(window, {
+  Icon, fmt, yieldTone, YieldChip, PriBadge,
+  RecordsTable, ReturnsTable,
+  LoginModal, ToastStack,
+  SEED_USERS, initials,
+});
+
+  </script>
+
+  <script type="text/babel" data-presets="react">
+/* RecordFormDrawer — create/edit a record */
+const { useState: useStateF, useEffect: useEffectF, useMemo: useMemoF, useRef: useRefF } = React;
+
+function emptyReturn(priority) {
+  return {
+    priority: priority || 'P1',
+    returnCustomer: '',
+    lane: '',
+    monthlyLoad: '',
+    distanceLoaded: '',
+    distanceEmpty: '',
+    totalDistance: '',
+    yieldPct: '',
+    blend: '',
+  };
+}
+
+function emptyRecord() {
+  return {
+    forward: {
+      customer: '',
+      lane: '',
+      febLoad: '',
+      distanceKms: '',
+      yieldPct: '',
+      minKms: '',
+      maxKms: '',
+    },
+    returns: [emptyReturn('P1')],
+  };
+}
+
+function NumInput({ value, onChange, placeholder, suffix, step }) {
+  return (
+    <div className={'field-suffix' + (suffix ? '' : '')}>
+      <input
+        type="number"
+        className="num"
+        value={value ?? ''}
+        step={step || 'any'}
+        placeholder={placeholder || ''}
+        onChange={e => onChange(e.target.value === '' ? '' : +e.target.value)}
+      />
+      {suffix && <span className="suffix">{suffix}</span>}
+    </div>
+  );
+}
+
+function RecordFormDrawer({ initial, isNew, onSave, onCancel, currentUser }) {
+  const [rec, setRec] = useStateF(() => {
+    if (initial) return JSON.parse(JSON.stringify(initial));
+    return emptyRecord();
+  });
+
+  const setF = (key, val) => setRec(r => ({ ...r, forward: { ...r.forward, [key]: val } }));
+  const setR = (i, key, val) => setRec(r => ({
+    ...r,
+    returns: r.returns.map((x, idx) => idx === i ? { ...x, [key]: val } : x),
+  }));
+
+  // auto-fill total distance if loaded+empty present and total missing/derived
+  useEffectF(() => {
+    setRec(r => ({
+      ...r,
+      returns: r.returns.map(ret => {
+        const l = +ret.distanceLoaded || 0;
+        const e = +ret.distanceEmpty || 0;
+        if (ret.distanceLoaded !== '' && ret.distanceEmpty !== '' && (ret.totalDistance === '' || +ret.totalDistance === (l + e) || ret._autoTotal)) {
+          return { ...ret, totalDistance: l + e, _autoTotal: true };
+        }
+        return ret;
+      }),
+    }));
+    // eslint-disable-next-line
+  }, [JSON.stringify(rec.returns.map(r => [r.distanceLoaded, r.distanceEmpty]))]);
+
+  const addReturn = () => setRec(r => {
+    const nextP = 'P' + (r.returns.length + 1);
+    return { ...r, returns: [...r.returns, emptyReturn(nextP)] };
+  });
+
+  const removeReturn = (i) => setRec(r => ({
+    ...r,
+    returns: r.returns.filter((_, idx) => idx !== i).map((ret, idx) => ({ ...ret, priority: 'P' + (idx + 1) })),
+  }));
+
+  const moveReturn = (i, dir) => setRec(r => {
+    const next = [...r.returns];
+    const j = i + dir;
+    if (j < 0 || j >= next.length) return r;
+    [next[i], next[j]] = [next[j], next[i]];
+    return { ...r, returns: next.map((x, idx) => ({ ...x, priority: 'P' + (idx + 1) })) };
+  });
+
+  const canSave = !!(rec.forward.customer && rec.forward.customer.trim());
+
+  const handleSave = () => {
+    // strip empty trailing returns where everything's blank
+    const cleanRets = rec.returns
+      .map(r => {
+        const { _autoTotal, ...rest } = r;
+        return rest;
+      })
+      .filter(r => Object.values(r).some(v => v !== '' && v !== null));
+    const payload = {
+      ...rec,
+      returns: cleanRets,
+    };
+    onSave(payload);
+  };
+
+  return (
+    <>
+      <div className="drawer-overlay" onClick={onCancel} />
+      <div className="drawer" role="dialog" aria-modal="true">
+        <div className="drawer-header">
+          <div className="drawer-title-block">
+            <div className="drawer-eyebrow">{isNew ? 'New record' : 'Edit record'}</div>
+            <div className="drawer-title">
+              {rec.forward.customer || (isNew ? 'Add Forward Lane' : 'Untitled lane')}
+              {rec.forward.lane && <span style={{ color: 'var(--text-mut)', fontWeight: 400, marginLeft: 8 }}> · {rec.forward.lane}</span>}
+            </div>
+          </div>
+          <button className="btn btn-ghost btn-icon" onClick={onCancel} title="Close"><Icon.X/></button>
+        </div>
+
+        <div className="drawer-body">
+          {/* Forward */}
+          <div className="section">
+            <div className="section-head">
+              <div className="section-marker"/>
+              <div className="section-title">Forward Lane — Customer Origin</div>
+              <div className="section-sub">The originating customer & route</div>
+            </div>
+            <div className="field-grid">
+              <div className="field col-6">
+                <label>Customer <span className="req">*</span></label>
+                <input type="text" value={rec.forward.customer} onChange={e => setF('customer', e.target.value)} placeholder="e.g. Silox India" autoFocus />
+              </div>
+              <div className="field col-6">
+                <label>Lane</label>
+                <input type="text" value={rec.forward.lane} onChange={e => setF('lane', e.target.value)} placeholder="e.g. Chanderiya — Silvassa" />
+              </div>
+              <div className="field col-3">
+                <label>Feb Load <span className="hint">MT</span></label>
+                <NumInput value={rec.forward.febLoad} onChange={v => setF('febLoad', v)} suffix="MT"/>
+              </div>
+              <div className="field col-3">
+                <label>Distance (Actuals) <span className="hint">KM</span></label>
+                <NumInput value={rec.forward.distanceKms} onChange={v => setF('distanceKms', v)} suffix="km"/>
+              </div>
+              <div className="field col-2">
+                <label>Yield</label>
+                <NumInput value={rec.forward.yieldPct} onChange={v => setF('yieldPct', v)} suffix="%"/>
+              </div>
+              <div className="field col-2">
+                <label>Min-KMS</label>
+                <NumInput value={rec.forward.minKms} onChange={v => setF('minKms', v)} suffix="km"/>
+              </div>
+              <div className="field col-2">
+                <label>Max-KMS</label>
+                <NumInput value={rec.forward.maxKms} onChange={v => setF('maxKms', v)} suffix="km"/>
+              </div>
+            </div>
+          </div>
+
+          {/* Returns */}
+          <div className="section">
+            <div className="section-head">
+              <div className="section-marker accent"/>
+              <div className="section-title">Return Lanes — Backhaul Priorities</div>
+              <div className="section-sub">{rec.returns.length} priorit{rec.returns.length === 1 ? 'y' : 'ies'}</div>
+            </div>
+            <div className="returns-editor">
+              {rec.returns.map((r, i) => (
+                <div key={i} className="return-card">
+                  <div className="return-card-head">
+                    <PriBadge p={r.priority}/>
+                    <input type="text" value={r.returnCustomer} onChange={e => setR(i, 'returnCustomer', e.target.value)} placeholder="Return customer (e.g. Apar + Chauhan)" />
+                    <button className="btn btn-xs" onClick={() => moveReturn(i, -1)} disabled={i === 0} title="Move up">↑</button>
+                    <button className="btn btn-xs" onClick={() => moveReturn(i, 1)} disabled={i === rec.returns.length - 1} title="Move down">↓</button>
+                    <button className="btn btn-xs btn-danger" onClick={() => removeReturn(i)} title="Remove"><Icon.Trash/></button>
+                  </div>
+                  <div className="field-grid">
+                    <div className="field col-12">
+                      <label>Return Lane</label>
+                      <input type="text" value={r.lane} onChange={e => setR(i, 'lane', e.target.value)} placeholder="e.g. Silvassa — Khavda — Mundra — Chittorgarh" />
+                    </div>
+                    <div className="field col-2">
+                      <label>Monthly Load <span className="hint">MT</span></label>
+                      <NumInput value={r.monthlyLoad} onChange={v => setR(i, 'monthlyLoad', v)} suffix="MT"/>
+                    </div>
+                    <div className="field col-2">
+                      <label>Loaded KMS</label>
+                      <NumInput value={r.distanceLoaded} onChange={v => { setR(i, 'distanceLoaded', v); setR(i, '_autoTotal', true); }} suffix="km"/>
+                    </div>
+                    <div className="field col-2">
+                      <label>Empty KMS</label>
+                      <NumInput value={r.distanceEmpty} onChange={v => { setR(i, 'distanceEmpty', v); setR(i, '_autoTotal', true); }} suffix="km"/>
+                    </div>
+                    <div className={`field col-2 ${r._autoTotal ? 'derived' : ''}`}>
+                      <label>Total KMS {r._autoTotal && <span className="hint">auto</span>}</label>
+                      <NumInput value={r.totalDistance} onChange={v => { setR(i, 'totalDistance', v); setR(i, '_autoTotal', false); }} suffix="km"/>
+                    </div>
+                    <div className="field col-2">
+                      <label>Yield</label>
+                      <NumInput value={r.yieldPct} onChange={v => setR(i, 'yieldPct', v)} suffix="%"/>
+                    </div>
+                    <div className="field col-2">
+                      <label>Blend</label>
+                      <NumInput value={r.blend} onChange={v => setR(i, 'blend', v)} suffix="%"/>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              <button className="add-priority" onClick={addReturn}>
+                <Icon.Plus/> Add another priority (P{rec.returns.length + 1})
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div className="drawer-footer">
+          <div className="footer-meta">
+            {initial?.createdAt ? (
+              <>
+                <span>Created {fmt.date(initial.createdAt)} · by {initial.createdBy}</span>
+                {initial.updatedAt && initial.updatedAt !== initial.createdAt && (
+                  <span>Last edited {fmt.date(initial.updatedAt)} · by {initial.updatedBy}</span>
+                )}
+              </>
+            ) : (
+              <span>Will be saved as <b>{currentUser?.name}</b> · {new Date().toLocaleString('en-IN')}</span>
+            )}
+          </div>
+          <button className="btn" onClick={onCancel}>Cancel</button>
+          <button className="btn btn-primary" disabled={!canSave} onClick={handleSave}>
+            <Icon.Check/> {isNew ? 'Create record' : 'Save changes'}
+          </button>
+        </div>
+      </div>
+    </>
+  );
+}
+
+window.RecordFormDrawer = RecordFormDrawer;
+
+  </script>
+
+  <script type="text/babel" data-presets="react">
+/* App — main entry */
+const { useState: useStateA, useEffect: useEffectA, useMemo: useMemoA, useRef: useRefA, useCallback: useCallbackA } = React;
+
+const STORAGE_KEY = 'rr.records.v1';
+const USER_KEY = 'rr.user.v1';
+
+function uid() {
+  return 'r_' + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+}
+
+function loadRecords() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return null;
+}
+
+function persistRecords(records) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(records)); } catch (e) {}
+}
+
+function loadUser() {
+  try {
+    const raw = localStorage.getItem(USER_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {}
+  return null;
+}
+function persistUser(u) {
+  try { localStorage.setItem(USER_KEY, JSON.stringify(u)); } catch (e) {}
+}
+
+/* Seed once */
+async function fetchSeed() {
+  try {
+    const data = window.__SEED_DATA__;
+    if (!data || !data.length) return [];
+    const now = new Date();
+    return data.map((rec, i) => {
+      const t = new Date(now.getTime() - (data.length - i) * 1000 * 60 * 60 * 6).toISOString();
+      const seedUser = SEED_USERS[i % SEED_USERS.length];
+      return {
+        ...rec,
+        id: uid(),
+        createdAt: t,
+        createdBy: seedUser.name,
+        updatedAt: t,
+        updatedBy: seedUser.name,
+      };
+    });
+  } catch (e) {
+    return [];
+  }
+}
+
+/* ───────────────── Import view ─────────────── */
+function ImportView({ onImport, currentUser, pushToast, recordsCount }) {
+  const [drag, setDrag] = useStateA(false);
+  const [preview, setPreview] = useStateA(null); // { records, filename }
+  const [mode, setMode] = useStateA('append'); // append | replace
+  const inputRef = useRefA(null);
+
+  const onFiles = async (files) => {
+    const file = files?.[0];
+    if (!file) return;
+    try {
+      const records = await window.ExcelIO.parseFile(file);
+      setPreview({ records, filename: file.name });
+    } catch (e) {
+      console.error(e);
+      pushToast({ kind: 'error', msg: `Could not parse "${file.name}": ${e.message}` });
+    }
+  };
+
+  const handleConfirm = () => {
+    if (!preview) return;
+    onImport(preview.records, mode);
+    pushToast({ kind: 'success', msg: `Imported ${preview.records.length} records (${mode === 'replace' ? 'replaced' : 'appended'})` });
+    setPreview(null);
+  };
+
+  return (
+    <div className="import-pane">
+      <div className="import-card">
+        <div className="import-card-head">
+          <h3>Import an Excel spreadsheet</h3>
+          <p>Drop a .xlsx file matching the Ready Reckoner schema. Records will be tagged with your user id and timestamp.</p>
+        </div>
+        <div className="import-card-body">
+          <div
+            className={`dropzone ${drag ? 'dragging' : ''}`}
+            onDragOver={e => { e.preventDefault(); setDrag(true); }}
+            onDragLeave={() => setDrag(false)}
+            onDrop={e => { e.preventDefault(); setDrag(false); onFiles(e.dataTransfer.files); }}
+            onClick={() => inputRef.current?.click()}
+          >
+            <Icon.Upload width="28" height="28"/>
+            <h4>Drop Ready_Reckoner.xlsx here</h4>
+            <p>or click to browse · .xlsx, .xls</p>
+            <input ref={inputRef} type="file" accept=".xlsx,.xls" style={{ display: 'none' }} onChange={e => onFiles(e.target.files)} />
+          </div>
+
+          {preview && (
+            <div className="import-preview">
+              <h4>Preview · {preview.filename}</h4>
+              <div className="import-summary">
+                <div className="stat">
+                  <div className="stat-label">Forward lanes</div>
+                  <div className="stat-val">{preview.records.length}</div>
+                </div>
+                <div className="stat">
+                  <div className="stat-label">Return priorities</div>
+                  <div className="stat-val">{preview.records.reduce((a, r) => a + (r.returns?.length || 0), 0)}</div>
+                </div>
+                <div className="stat">
+                  <div className="stat-label">Unique customers</div>
+                  <div className="stat-val">{new Set(preview.records.map(r => r.forward?.customer).filter(Boolean)).size}</div>
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 10, alignItems: 'center', marginBottom: 12, fontSize: 13 }}>
+                <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
+                  <input type="radio" name="mode" checked={mode === 'append'} onChange={() => setMode('append')} />
+                  Append to existing ({recordsCount} records)
+                </label>
+                <label style={{ display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}>
+                  <input type="radio" name="mode" checked={mode === 'replace'} onChange={() => setMode('replace')} />
+                  Replace all existing
+                </label>
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button className="btn" onClick={() => setPreview(null)}>Discard</button>
+                <button className="btn btn-primary" onClick={handleConfirm}><Icon.Check/> Confirm import</button>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="import-card">
+        <div className="import-card-head">
+          <h3>Expected schema</h3>
+          <p>Two row headers: <i>Forward Lane (Customer Origin)</i> spanning A–G, <i>Return Lane (Backhaul)</i> spanning H–P.</p>
+        </div>
+        <div className="import-card-body">
+          <div className="schema-grid">
+            <div className="schema-col">
+              <h5 className="fwd">Forward Lane · columns A–G</h5>
+              <ul className="schema-list">
+                {window.ExcelIO.FWD_COLS.map((c, i) => (
+                  <li key={c.key}><span>{c.label}</span><span className="col-letter">{String.fromCharCode(65 + i)}</span></li>
+                ))}
+              </ul>
+            </div>
+            <div className="schema-col">
+              <h5 className="ret">Return Lane · columns H–P</h5>
+              <ul className="schema-list">
+                {window.ExcelIO.RET_COLS.map((c, i) => (
+                  <li key={c.key}><span>{c.label}</span><span className="col-letter">{String.fromCharCode(72 + i)}</span></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div style={{ marginTop: 14, fontSize: 12, color: 'var(--text-mut)' }}>
+            Multiple return rows can share one forward lane — leave A–G blank to continue the previous forward lane (same as the original sheet).
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ───────────────── App ─────────────── */
+function App() {
+  const [user, setUser] = useStateA(() => loadUser());
+  const [records, setRecords] = useStateA(null); // null = not loaded yet
+  const [tab, setTab] = useStateA('records');
+  const [query, setQuery] = useStateA('');
+  const [editing, setEditing] = useStateA(null); // { record, isNew }
+  const [toasts, setToasts] = useStateA([]);
+  const toastIdRef = useRefA(0);
+
+  // Bootstrap records
+  useEffectA(() => {
+    (async () => {
+      const stored = loadRecords();
+      if (stored && stored.length) {
+        setRecords(stored);
+        return;
+      }
+      const seed = await fetchSeed();
+      setRecords(seed);
+      persistRecords(seed);
+    })();
+  }, []);
+
+  // Persist on change
+  useEffectA(() => {
+    if (records) persistRecords(records);
+  }, [records]);
+
+  const pushToast = useCallbackA((t) => {
+    const id = ++toastIdRef.current;
+    setToasts(prev => [...prev, { ...t, id }]);
+    setTimeout(() => setToasts(prev => prev.filter(x => x.id !== id)), 2800);
+  }, []);
+
+  if (!user) {
+    return <LoginModal onLogin={(u) => { setUser(u); persistUser(u); }} />;
+  }
+
+  if (records === null) {
+    return <div style={{ padding: 40, color: 'var(--text-mut)' }}>Loading…</div>;
+  }
+
+  const handleSave = (payload) => {
+    const now = new Date().toISOString();
+    if (editing.isNew) {
+      const rec = {
+        ...payload,
+        id: uid(),
+        createdAt: now,
+        createdBy: user.name,
+        createdById: user.id,
+        updatedAt: now,
+        updatedBy: user.name,
+        updatedById: user.id,
+      };
+      setRecords(prev => [rec, ...prev]);
+      pushToast({ kind: 'success', msg: `Created record for ${rec.forward.customer}` });
+    } else {
+      setRecords(prev => prev.map(r => r.id === editing.record.id
+        ? { ...r, ...payload, updatedAt: now, updatedBy: user.name, updatedById: user.id }
+        : r));
+      pushToast({ kind: 'success', msg: `Saved changes to ${payload.forward.customer}` });
+    }
+    setEditing(null);
+  };
+
+  const handleDelete = (rec) => {
+    setRecords(prev => prev.filter(r => r.id !== rec.id));
+    pushToast({ kind: 'success', msg: `Deleted ${rec.forward.customer}` });
+  };
+
+  const handleExport = () => {
+    const filename = `Ready_Reckoner_${new Date().toISOString().slice(0,10)}.xlsx`;
+    window.ExcelIO.exportRecords(records, filename);
+    pushToast({ kind: 'success', msg: `Exported ${records.length} records → ${filename}` });
+  };
+
+  const handleImport = (incoming, mode) => {
+    const now = new Date().toISOString();
+    const stamped = incoming.map(rec => ({
+      ...rec,
+      id: uid(),
+      createdAt: now,
+      createdBy: user.name,
+      createdById: user.id,
+      updatedAt: now,
+      updatedBy: user.name,
+      updatedById: user.id,
+      _imported: true,
+    }));
+    if (mode === 'replace') setRecords(stamped);
+    else setRecords(prev => [...stamped, ...prev]);
+    setTab('records');
+  };
+
+  const totalReturns = records.reduce((a, r) => a + (r.returns?.length || 0), 0);
+  const uniqCust = new Set(records.map(r => r.forward?.customer).filter(Boolean)).size;
+  const avgYield = (() => {
+    const ys = records.map(r => r.forward?.yieldPct).filter(v => v != null && v !== '');
+    if (!ys.length) return null;
+    return ys.reduce((a, b) => a + +b, 0) / ys.length;
+  })();
+
+  return (
+    <div className="app">
+      <header className="topbar">
+        <div className="brand">
+          <div className="brand-mark">RR</div>
+          <div>
+            <div className="brand-name">Ready Reckoner</div>
+            <div className="brand-sub">Lane Yield Tracker</div>
+          </div>
+        </div>
+        <div className="topbar-divider"/>
+        <nav className="topbar-tabs">
+          <button className={`tab ${tab === 'records' ? 'active' : ''}`} onClick={() => setTab('records')}>
+            Records <span className="tab-count">{records.length}</span>
+          </button>
+          <button className={`tab ${tab === 'import' ? 'active' : ''}`} onClick={() => setTab('import')}>
+            Import / Export
+          </button>
+        </nav>
+        <button className="user-pill" onClick={() => {
+          if (confirm(`Sign out ${user.name}?`)) { localStorage.removeItem(USER_KEY); setUser(null); }
+        }}>
+          <div className="user-avatar">{initials(user.name)}</div>
+          <span className="user-name">{user.name}</span>
+          <span className="user-role">· {user.role}</span>
+        </button>
+      </header>
+
+      <main className="main">
+        {tab === 'records' && (
+          <>
+            <div className="actionbar">
+              <div className="stat-group">
+                <div className="stat">
+                  <span className="stat-label">Forward lanes</span>
+                  <span className="stat-val">{records.length}</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-label">Return priorities</span>
+                  <span className="stat-val">{totalReturns}</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-label">Customers</span>
+                  <span className="stat-val">{uniqCust}</span>
+                </div>
+                <div className="stat">
+                  <span className="stat-label">Avg forward yield</span>
+                  <span className="stat-val">{avgYield != null ? avgYield.toFixed(1) : '—'}<span className="unit">%</span></span>
+                </div>
+              </div>
+              <div className="search-input">
+                <Icon.Search/>
+                <input placeholder="Search customer, lane, priority…" value={query} onChange={e => setQuery(e.target.value)} />
+              </div>
+              <button className="btn" onClick={handleExport}><Icon.Download/> Export .xlsx</button>
+              <button className="btn btn-primary" onClick={() => setEditing({ record: null, isNew: true })}>
+                <Icon.Plus/> New record
+              </button>
+            </div>
+            <RecordsTable
+              records={records}
+              onEdit={(r) => setEditing({ record: r, isNew: false })}
+              onDelete={handleDelete}
+              onAdd={() => setEditing({ record: null, isNew: true })}
+              query={query}
+            />
+          </>
+        )}
+        {tab === 'import' && (
+          <ImportView
+            onImport={handleImport}
+            currentUser={user}
+            pushToast={pushToast}
+            recordsCount={records.length}
+          />
+        )}
+      </main>
+
+      {editing && (
+        <RecordFormDrawer
+          initial={editing.record}
+          isNew={editing.isNew}
+          currentUser={user}
+          onCancel={() => setEditing(null)}
+          onSave={handleSave}
+        />
+      )}
+
+      <ToastStack toasts={toasts}/>
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+
+  </script>
+</body>
+</html>
