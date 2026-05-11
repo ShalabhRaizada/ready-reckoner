@@ -1,0 +1,48 @@
+name: Build Windows exe
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'electron-main.js'
+      - 'package.json'
+      - 'index.html'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Windows installer
+        run: npm run build:win
+
+      - name: Publish to GitHub Releases
+        shell: bash
+        run: |
+          gh release delete v1.0.0 --yes 2>/dev/null || true
+          gh release create v1.0.0 dist/*.exe \
+            --title "Ready Reckoner v1.0.0 — Windows" \
+            --notes "## Ready Reckoner — Lane Yield Tracker
+
+Windows installer. Double-click the .exe to install, then launch **ReadyReckoner** from the Start menu.
+
+- All 76 pre-loaded forward lanes with return priorities
+- Create, edit, delete records with user/timestamp audit trail
+- Import & export .xlsx spreadsheets
+- Search across customers, lanes and priorities
+- Data persists locally between sessions"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
