@@ -1,7 +1,7 @@
 {
   "name": "ready-reckoner",
   "version": "1.0.0",
-  "description": "Ready Reckoner — Lane Yield Tracker",
+  "description": "Ready Reckoner \u2014 Lane Yield Tracker",
   "main": "electron-main.js",
   "scripts": {
     "start": "electron .",
@@ -19,7 +19,12 @@
     },
     "win": {
       "target": [
-        { "target": "nsis", "arch": ["x64"] }
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        }
       ]
     },
     "nsis": {
@@ -31,5 +36,6 @@
   "devDependencies": {
     "electron": "^28.3.3",
     "electron-builder": "^24.13.3"
-  }
+  },
+  "_build": 1
 }
