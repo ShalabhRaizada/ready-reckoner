@@ -35,14 +35,6 @@ jobs:
           gh release delete v1.0.0 --yes 2>/dev/null || true
           gh release create v1.0.0 dist/*.exe \
             --title "Ready Reckoner v1.0.0 — Windows" \
-            --notes "## Ready Reckoner — Lane Yield Tracker
-
-Windows installer. Double-click the .exe to install, then launch **ReadyReckoner** from the Start menu.
-
-- All 76 pre-loaded forward lanes with return priorities
-- Create, edit, delete records with user/timestamp audit trail
-- Import & export .xlsx spreadsheets
-- Search across customers, lanes and priorities
-- Data persists locally between sessions"
+            --notes "Windows installer. Double-click to install, then launch ReadyReckoner from the Start menu."
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
